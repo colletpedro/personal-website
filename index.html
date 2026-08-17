@@ -237,8 +237,8 @@
           <div class="tl-body">
             <div class="tl-date"><span class="lang-en">2025 — Present</span><span class="lang-pt">2025 — Presente</span></div>
             <div class="tl-title">MGITECH</div>
-            <p class="tl-desc lang-en">AI Research Intern — designing and maintaining a production RAG system and a multi-agent WhatsApp support tool.</p>
-            <p class="tl-desc lang-pt">Estagiário em Pesquisa de IA — projetando e mantendo um sistema RAG em produção e uma ferramenta de suporte multiagente via WhatsApp.</p>
+            <p class="tl-desc lang-en">AI Research Intern — designing and validating a production RAG system (structured evaluation, ablation studies) and a multi-agent WhatsApp support tool, with data protection safeguards aligned to LGPD.</p>
+            <p class="tl-desc lang-pt">Estagiário em Pesquisa de IA — projetando e validando um sistema RAG em produção (avaliação estruturada, ablation studies) e um agente multiagente de atendimento via WhatsApp, com proteção de dados alinhada à LGPD.</p>
           </div>
         </div>
 
@@ -257,8 +257,8 @@
           <div class="tl-body">
             <div class="tl-date">2024 — 2025</div>
             <div class="tl-title">Amora Growth</div>
-            <p class="tl-desc lang-en">Data Analysis Intern — ETL pipelines, KPI monitoring, and predictive models for commercial decisions.</p>
-            <p class="tl-desc lang-pt">Estagiário em Análise de Dados — pipelines de ETL, monitoramento de KPIs e modelos preditivos para decisões comerciais.</p>
+            <p class="tl-desc lang-en">Data Analysis Intern — ETL pipelines over 1M+ records, predictive models, and API integrations for real-time KPI monitoring.</p>
+            <p class="tl-desc lang-pt">Estagiário em Análise de Dados — pipelines ETL sobre bases de 1M+ registros, modelos preditivos e integração de APIs para monitoramento de KPIs em tempo real.</p>
           </div>
         </div>
 
@@ -283,6 +283,18 @@
 
         <div class="project-card">
           <div class="project-head">
+            <div class="project-title">quantlab</div>
+            <div class="project-date">2026</div>
+          </div>
+          <p class="project-desc lang-en">A multi-asset, long+short investment strategy simulator built to prevent lookahead bias by construction — a decision on day X can only see data through day X. Validated by mutation testing (mutating future bars must not change past decisions) and penny-exact accounting reconciliation. The end-to-end pipeline itself caught a real data bug: historical stock splits double-counted for 5 tickers, making a benchmark appear to return 832x capital — corrected with a provable round-trip fix and full data regeneration.</p>
+          <p class="project-desc lang-pt">Simulador de estratégias de investimento multi-ativo, long+short, construído pra impedir viés de lookahead por construção — uma decisão no dia X só enxerga dados até o dia X. Validado por testes de mutação (mutar barras futuras não pode mudar decisões passadas) e conciliação contábil exata. O próprio pipeline pegou um bug real de dados: splits históricos contados em dobro em 5 tickers, fazendo um benchmark parecer render 832x o capital — corrigido com prova de round-trip e regeneração completa dos dados.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">MongoDB</span><span class="tag">Docker</span><span class="tag">pytest</span><span class="tag">mypy --strict</span><span class="tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-head">
             <div class="project-title">Espectro 24</div>
             <div class="project-date">2026</div>
           </div>
@@ -298,8 +310,8 @@
             <div class="project-title"><span class="lang-en">World Cup 2026 Predictor</span><span class="lang-pt">Preditor Copa do Mundo 2026</span></div>
             <div class="project-date">2026</div>
           </div>
-          <p class="project-desc lang-en">A live prediction system built to forecast match outcomes and statistics throughout the 2026 FIFA World Cup, generating predictions before kickoff and automatically evaluating its own performance after each match. Comparing two independent data sources uncovered a real bug in yellow card counts, while probability calibration delivered the project's largest improvement in predictive accuracy.</p>
-          <p class="project-desc lang-pt">Sistema de previsão ao vivo desenvolvido para acompanhar toda a Copa do Mundo de 2026, gerando previsões antes do início de cada partida e avaliando automaticamente o próprio desempenho após os jogos. Durante o projeto, a comparação entre duas fontes independentes revelou um bug real na contagem de cartões, e a calibração de probabilidades foi a melhoria que mais aumentou a precisão do modelo.</p>
+          <p class="project-desc lang-en">A live prediction system built to forecast match outcomes and statistics throughout the 2026 FIFA World Cup, generating predictions before kickoff and automatically evaluating its own performance after each match. Comparing two independent data sources uncovered a real bug in yellow card counts, while probability calibration delivered the project's largest improvement in predictive accuracy — the same calibration approach used in risk and credit-scoring models.</p>
+          <p class="project-desc lang-pt">Sistema de previsão ao vivo desenvolvido para acompanhar toda a Copa do Mundo de 2026, gerando previsões antes do início de cada partida e avaliando automaticamente o próprio desempenho após os jogos. Durante o projeto, a comparação entre duas fontes independentes revelou um bug real na contagem de cartões, e a calibração de probabilidades foi a melhoria que mais aumentou a precisão do modelo — a mesma abordagem de calibração usada em modelos de risco e scoring de crédito.</p>
           <div class="tag-row">
             <span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">Poisson Models</span><span class="tag">Probability Calibration</span>
           </div>
