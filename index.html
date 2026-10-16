@@ -80,11 +80,11 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .hero-top{display:flex;justify-content:space-between;gap:20px;font-size:13px;color:var(--haze)}
 .hero h1{font:600 clamp(110px,17vw,300px)/.8 var(--display);letter-spacing:-.045em;margin:auto 0 0;padding-top:30px;position:relative;z-index:1}
 .h1-line{display:block;overflow:hidden;padding:0 .04em .05em 0}
-.h1-line>span{display:inline-block;transform:translate3d(calc(var(--p,0) * -16vw),0,0);animation:rise 1.2s var(--ease) both}
+.h1-line>span{display:inline-block;animation:rise 1.2s var(--ease) both}
 .h1-line:last-child{margin-left:15vw}
-.h1-line:last-child>span{transform:translate3d(calc(var(--p,0) * 16vw),0,0);animation-delay:.12s}
+.h1-line:last-child>span{animation-delay:.12s}
 @keyframes rise{from{translate:0 105%}}
-.hero-portrait{position:absolute;right:13vw;top:19vh;z-index:2;transform:translate3d(0,calc(var(--p,0) * -220px),0);perspective:900px}
+.hero-portrait{position:absolute;right:13vw;top:19vh;z-index:2;perspective:900px}
 .portrait-tilt{transform:rotateY(calc(var(--mx,0) * 14deg)) rotateX(calc(var(--my,0) * -12deg));transition:transform .4s var(--ease);transform-style:preserve-3d}
 .portrait-card{position:relative;width:clamp(160px,17vw,270px);aspect-ratio:4/5;background:#f2f1ec;padding:11px 11px 42px;rotate:5deg;box-shadow:0 50px 90px -24px #000e,0 18px 36px #0007;animation:drop 1.3s .25s var(--ease) both}
 .portrait-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.75) contrast(1.05)}
@@ -102,9 +102,9 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .project-index a:hover{color:var(--amber)}
 
 /* Shared scene scaffolding: tall section, pinned viewport. */
-.scene{position:relative;height:var(--len,280vh)}
-.scene-pin{position:sticky;top:0;height:100vh;overflow:clip;isolation:isolate}
-.scene-word{position:absolute;z-index:0;white-space:nowrap;pointer-events:none;user-select:none;font:700 clamp(160px,26vw,440px)/1 var(--display);letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px #ffffff14;transform:translate3d(calc((var(--p,0) - .5) * -24vw),0,0)}
+.scene{position:relative}
+.scene-pin{position:relative;height:100vh;min-height:700px;overflow:clip;isolation:isolate}
+.scene-word{position:absolute;z-index:0;white-space:nowrap;pointer-events:none;user-select:none;font:700 clamp(160px,26vw,440px)/1 var(--display);letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px #ffffff14}
 .project-featured{font-size:13px;color:var(--amber);margin-bottom:14px}
 .project-head{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
 .project-title{font:600 clamp(48px,5vw,80px)/.95 var(--display);letter-spacing:-.02em}
@@ -125,9 +125,8 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .scene-keep{--len:330vh}
 .scene-keep .scene-word{top:9vh;left:0}
 .keep-float{position:absolute;inset:0;z-index:1;pointer-events:none}
-.fnote{position:absolute;left:var(--x);top:var(--y);width:var(--w,150px);opacity:var(--o,.55);filter:blur(var(--b,0px));transform:translate3d(calc(var(--mx,0) * var(--z,1) * -38px),calc((var(--p,0) - .5) * var(--z,1) * -760px + var(--my,0) * var(--z,1) * -26px),0) rotate(var(--r,0deg));transition:transform .45s cubic-bezier(.2,.7,.3,1),opacity .6s ease,filter .6s ease}
-.fnote.lit{opacity:calc(var(--o,.55) + .4);filter:blur(0px) drop-shadow(0 0 22px var(--glow,#f0c95a66))}
-.fnote.lit .fnote-in{outline:2px solid #ffffffaa;outline-offset:3px}
+.fall{position:absolute;top:0;left:var(--x);width:var(--w);opacity:var(--o);filter:blur(var(--b));animation:fall var(--t) linear var(--d) infinite;will-change:transform}
+@keyframes fall{from{transform:translate3d(0,-280px,0) rotate(var(--r0))}to{transform:translate3d(var(--dx),calc(100vh + 160px),0) rotate(var(--r1))}}
 .fnote-in{background:var(--c);color:#2c271c;border-radius:3px 3px 16px 3px;padding:14px 15px 18px;box-shadow:0 34px 50px -20px #000b,0 2px 0 #ffffff55 inset;animation:bob var(--t,7s) ease-in-out var(--d,0s) infinite alternate;font-size:12px;line-height:1.45}
 .fnote-in b{display:block;font:600 17px/1.1 var(--display);margin-bottom:6px}
 .fnote-in s{text-decoration-thickness:1.5px;opacity:.65}
@@ -136,7 +135,7 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .keep-layout .project-copy{position:relative}
 .keep-layout .project-desc{font-size:14.5px}
 .project-action{margin-top:24px}
-.keep-screen{position:relative;justify-self:end;width:min(100%,calc((100vh - 164px) * 1.6));aspect-ratio:16/10;border-radius:20px;padding:11px;background:linear-gradient(160deg,#30363b,#15191c 60%);box-shadow:inset 0 0 0 1px #ffffff1c,0 70px 120px -30px #000e,0 30px 60px -24px #000a;transform:perspective(1600px) rotateX(calc((1 - var(--e,1)) * 26deg + var(--my,0) * -2deg)) rotateY(calc(var(--mx,0) * 3deg)) translate3d(0,calc((1 - var(--e,1)) * 110px),0) scale(calc(.84 + var(--e,1) * .16));transform-origin:50% 100%;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.keep-screen{position:relative;justify-self:end;width:min(100%,calc((100vh - 164px) * 1.6));aspect-ratio:16/10;border-radius:20px;padding:11px;background:linear-gradient(160deg,#30363b,#15191c 60%);box-shadow:inset 0 0 0 1px #ffffff1c,0 70px 120px -30px #000e,0 30px 60px -24px #000a;transform:perspective(1600px) rotateX(calc(var(--my,0) * -2deg)) rotateY(calc(var(--mx,0) * 3deg));transform-origin:50% 100%;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
 .keep-screen:after{content:'';position:absolute;left:8%;right:8%;bottom:-70px;height:80px;background:radial-gradient(closest-side,#f0c95a33,transparent);filter:blur(8px);z-index:-1}
 .mac-display{position:relative;height:100%;border-radius:10px;overflow:hidden;background:radial-gradient(120% 90% at 15% 0%,#3d6072 0,transparent 60%),radial-gradient(90% 80% at 100% 100%,#8b5b26 0,transparent 62%),linear-gradient(160deg,#1c2d38,#2b2620)}
 .mac-bar{position:relative;z-index:6;height:26px;display:flex;align-items:center;gap:18px;padding:0 14px;font-size:12px;color:#eef1f3;background:#0c13198c;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -174,57 +173,49 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .read i:nth-of-type(3n){width:84%}.read i:nth-of-type(4n){width:64%}
 .read em{display:block;margin:12px 0;padding-left:10px;border-left:3px solid #ee9279;font:italic 400 clamp(12px,1.05vw,15px)/1.4 var(--serif);color:#4a433a}
 .keep-stage{position:absolute;inset:26px 0 0 0;overflow:hidden;z-index:4}
-.keep-beacon{position:absolute;right:-90px;top:50%;width:220px;height:380px;translate:0 -50%;background:radial-gradient(closest-side,#f0c95a5e,#f0c95a00);animation:beacon 2.6s ease-in-out infinite;pointer-events:none;transition:opacity .4s}
-@keyframes beacon{50%{opacity:.35;scale:.85}}
-.keep-callout{position:absolute;right:42px;top:50%;translate:0 -50%;display:flex;align-items:center;gap:12px;text-align:right;pointer-events:none;transition:opacity .35s,translate .35s var(--ease)}
-.keep-callout strong{display:block;font:600 30px/1 var(--display);color:#fff;text-shadow:0 2px 16px #0009}
-.keep-callout small{display:block;margin-top:6px;font-size:12.5px;color:#ffffffc4;text-shadow:0 1px 8px #000a}
-.keep-callout svg{width:46px;height:30px;flex-shrink:0;animation:point 1.6s ease-in-out infinite}
-@keyframes point{50%{transform:translateX(7px)}}
-.keep-cursor{position:absolute;right:16px;top:calc(50% + 4px);width:22px;height:22px;pointer-events:none;animation:glide 5.2s var(--ease) infinite;filter:drop-shadow(0 3px 5px #0008)}
-.keep-cursor:after{content:'';position:absolute;left:-12px;top:-12px;width:24px;height:24px;border-radius:50%;border:2px solid #fff;opacity:0;animation:ripple 5.2s ease-out infinite}
-@keyframes glide{0%{transform:translate(-340px,150px);opacity:0}8%{opacity:1}42%,72%{transform:translate(0,0);opacity:1}84%,100%{transform:translate(0,0);opacity:0}}
-@keyframes ripple{0%,46%{opacity:0;transform:scale(.4)}50%{opacity:.9}66%,100%{opacity:0;transform:scale(1.8)}}
-.keep-stage[data-expanded=true] .keep-callout,.keep-stage[data-expanded=true] .keep-cursor{opacity:0;translate:20px -50%}
-.keep-stage[data-expanded=true] .keep-beacon{opacity:0}
-.keep-stage[data-touched=true] .keep-callout,.keep-stage[data-touched=true] .keep-cursor{display:none}
-.keep-stage:not(.in-view) *{animation-play-state:paused}
-.keep-stripe{position:absolute;right:0;top:50%;translate:0 -50%;width:18px;padding:9px 4px 9px 5px;border:0;border-radius:9px 0 0 9px;background:#070b0e99;backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:6px;z-index:5;transition:opacity .15s}
-.keep-stripe:before{content:'';position:absolute;inset:-30px -2px -30px -40px}
-.keep-stripe i{display:block;width:8px;height:22px;border-radius:4px;background:var(--spine);box-shadow:0 0 12px var(--spine)}
-.keep-stage[data-expanded=true] .keep-stripe{opacity:0;pointer-events:none}
-.keep-deck{position:absolute;right:0;width:100px;z-index:4;pointer-events:none}
-.keep-stage[data-expanded=true] .keep-deck{pointer-events:auto}
-.keep-tab{position:absolute;left:100px;top:0;width:60px;height:120px;border:none;border-radius:12px 0 0 12px;background:var(--paper);color:#1f1d1a;opacity:0;box-shadow:-8px 10px 24px #0005,inset 0 1px 0 #ffffff80;overflow:hidden;padding:0;touch-action:manipulation}
-.keep-tab.is-hovered{box-shadow:-14px 14px 30px #0007;outline:2px solid var(--spine);outline-offset:-2px}
-.keep-tab>span{position:absolute;left:0;right:12px;top:10px;bottom:10px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden}
-.keep-preview,.keep-note{position:absolute;background:var(--paper);color:#1f1d1a;border-radius:16px 0 0 16px;box-shadow:-20px 24px 60px #0007;opacity:0;overflow:hidden;pointer-events:none}
-.keep-preview{z-index:3;display:flex;border:0;text-align:left;padding:0}
-.preview-spine{flex:0 0 14px;background:var(--spine)}
-.preview-body{padding:20px 22px;min-width:220px;display:flex;flex-direction:column;gap:10px}
-.preview-body strong{font:600 24px/1.05 var(--display)}
-.preview-text{font-size:14.5px;line-height:1.5;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.preview-body small{font-size:11px;margin-top:auto;color:#4b4840}
-.keep-note{z-index:6;display:flex}
-.note-spine{width:52px;flex-shrink:0;background:var(--spine);border-right:1px dashed #1f1d1a33;position:relative}
-.note-close{display:block;margin:14px auto 0;border:0;border-radius:50%;background:#ffffff66;color:#1f1d1a;width:30px;height:30px;padding:0;font-size:20px;line-height:1}
-.note-spine>span{position:absolute;bottom:22px;left:17px;writing-mode:vertical-rl;font-size:12px;font-weight:600}
-.note-body{display:flex;flex-direction:column;flex:1;min-width:0;padding:22px 22px 14px}
-.note-body strong{font:600 28px/1.05 var(--display)}
-.note-body label{font-size:11px;margin:6px 0 10px;opacity:.7}
-.note-body textarea{resize:none;background:transparent;border:0;color:#1f1d1a;width:100%;min-height:40px;flex:1;font-size:15px;line-height:1.65;padding:0}
-.note-bottom{border-top:1px solid #1f1d1a20;padding-top:9px;margin-top:9px;display:flex;gap:8px}
-.note-color{border:1px solid #1f1d1a30;border-radius:50%;width:20px;height:20px;padding:0;background:var(--swatch);position:relative}
-.note-color:after{content:'';position:absolute;inset:-5px}
-.note-color[aria-pressed=true]{outline:2px solid #1f1d1a;outline-offset:2px}
+.keep-stage{--k:1}
+.kn-stripe{position:absolute;right:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(5px * var(--k));padding:0;border:0;border-radius:calc(7px * var(--k)) 0 0 calc(7px * var(--k));background:rgba(255,255,255,.32);cursor:pointer;transition:opacity .12s ease}
+.kn-stripe i{display:block;width:calc(5px * var(--k));height:calc(15px * var(--k));border-radius:calc(2.5px * var(--k));background:var(--spine);opacity:.92}
+.keep-stage:not([data-state=resting]) .kn-stripe{opacity:0;pointer-events:none}
+.kn-deck{position:absolute;right:0;top:0;bottom:0;z-index:3;pointer-events:none}
+.keep-stage[data-state=fanned] .kn-deck{pointer-events:auto}
+.kn-tab{position:absolute;padding:0;border:0;border-radius:calc(12px * var(--k)) 0 0 calc(12px * var(--k));background:var(--paper);color:#1f1d1aa6;box-shadow:-3px 0 4px rgba(0,0,0,.13);opacity:0;overflow:hidden;cursor:pointer;will-change:left,width,opacity}
+.kn-tab:after{content:'';position:absolute;right:calc(9px * var(--k));top:calc(8px * var(--k));bottom:calc(8px * var(--k));width:1px;background:repeating-linear-gradient(rgba(31,29,26,.2) 0 2.5px,transparent 2.5px 6px)}
+.kn-tab.hover{box-shadow:-5px 0 7px rgba(0,0,0,.22),inset 0 0 0 1.5px color-mix(in srgb,var(--spine) 95%,transparent)}
+.kn-tab>span{position:absolute;right:calc(17px * var(--k));top:calc(10px * var(--k));max-height:calc(84px * var(--k));writing-mode:vertical-rl;font:600 calc(10.5px * var(--k))/1 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kn-btn{position:absolute;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.72);color:#1f1d1a;font-size:calc(14px * var(--k));opacity:0;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.kn-peek{position:absolute;z-index:2;display:flex;border-radius:calc(12px * var(--k)) 0 0 calc(12px * var(--k));background:var(--paper);color:#1f1d1a;box-shadow:0 10px 30px rgba(0,0,0,.3);opacity:0;overflow:hidden;pointer-events:none;will-change:left,width,opacity}
+.kn-spine{position:relative;flex:0 0 calc(16px * var(--k));background:var(--spine)}
+.kn-spine:after{content:'';position:absolute;right:calc(5px * var(--k));top:calc(8px * var(--k));bottom:calc(8px * var(--k));width:1px;background:repeating-linear-gradient(rgba(31,29,26,.2) 0 2.5px,transparent 2.5px 6px)}
+.kn-peek-body{display:flex;flex-direction:column;gap:calc(6px * var(--k));min-width:calc(210px * var(--k));padding:calc(14px * var(--k)) calc(16px * var(--k))}
+.kn-peek strong{font:600 calc(15px * var(--k))/1.2 var(--sans)}
+.kn-peek p{margin:0;font-size:calc(14px * var(--k));line-height:calc(19.5px * var(--k));white-space:pre-line;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.kn-peek small{margin-top:auto;font-size:calc(11px * var(--k));color:#1f1d1a99;white-space:pre}
+.kn-note{position:absolute;z-index:4;display:flex;border-radius:calc(14px * var(--k)) 0 0 calc(14px * var(--k));background:var(--paper);color:#1f1d1a;box-shadow:0 18px 50px rgba(0,0,0,.38);opacity:0;overflow:hidden;pointer-events:none;will-change:left,top,width,height,opacity}
+.kn-note.open{pointer-events:auto}
+.kn-note .kn-spine{flex-basis:calc(48px * var(--k));display:flex;flex-direction:column;align-items:center;gap:calc(6px * var(--k));padding-top:calc(10px * var(--k))}
+.kn-note .kn-spine:after{right:calc(9px * var(--k))}
+.kn-circle{display:grid;place-items:center;width:calc(22px * var(--k));height:calc(22px * var(--k));padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.45);color:#1f1d1a;font-size:calc(13px * var(--k));line-height:1;cursor:pointer}
+.kn-spine-title{margin:auto 0 calc(14px * var(--k));writing-mode:vertical-rl;font:600 calc(12px * var(--k))/1 var(--sans);white-space:nowrap;overflow:hidden;max-height:calc(140px * var(--k))}
+.kn-note-body{flex:1;min-width:0;display:flex;flex-direction:column;padding:calc(16px * var(--k)) calc(18px * var(--k)) calc(12px * var(--k))}
+.kn-title{font:600 calc(20px * var(--k))/1.15 var(--sans)}
+.kn-text{flex:1;min-height:0;margin-top:calc(8px * var(--k));padding:0;border:0;background:transparent;resize:none;outline:none;color:#1f1d1a;font:400 calc(14px * var(--k))/1.6 var(--sans)}
+.kn-foot{display:flex;justify-content:space-between;align-items:center;padding-top:calc(8px * var(--k));border-top:1px solid rgba(31,29,26,.12);font-size:calc(11px * var(--k));color:#1f1d1a99}
+.kn-sw{display:flex;gap:calc(6px * var(--k))}
+.kn-sw i{display:block;width:calc(14px * var(--k));height:calc(14px * var(--k));border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(31,29,26,.15)}
+.kn-cursor{position:absolute;left:0;top:0;z-index:9;width:20px;height:20px;margin:-2px 0 0 -3px;pointer-events:none;opacity:0;transition:opacity .4s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.kn-cursor.on{opacity:1}
+.kn-cursor.press path{animation:press .22s ease}
+@keyframes press{50%{transform:scale(.82);transform-origin:3px 2px}}
 .stage-caption{position:absolute;left:14px;bottom:10px;z-index:2;font-size:11.5px;color:#ffffffb0;text-shadow:0 1px 6px #000a;pointer-events:none}
-.mobile-hint{display:none}
+.own-hint,.keep-stage[data-touched=true] .auto-hint{display:none}
+.keep-stage[data-touched=true] .own-hint{display:inline}
 
 /* Espectro 24 */
 .scene-film{--len:360vh;color:#efe6d8}
 .scene-film .scene-word{bottom:5vh;right:-2vw;font-family:var(--serif);font-weight:400;letter-spacing:-.03em;-webkit-text-stroke:1px #f3d9c012}
 .film-layout{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:1.75fr minmax(300px,.8fr);gap:clamp(32px,4.5vw,80px);align-items:center;padding:86px var(--pad) 86px}
-.film-rig{max-width:calc((100vh - 450px) * 2.39);width:100%;justify-self:center;transform:translate3d(0,calc((1 - var(--e,1)) * 80px),0) scale(calc(.9 + var(--e,1) * .1));opacity:calc(.25 + var(--e,1) * .75)}
+.film-rig{max-width:calc((100vh - 450px) * 2.39);width:100%;justify-self:center}
 .film-tilt{transform:perspective(1800px) rotateY(calc(var(--tx,0) * 5deg)) rotateX(calc(var(--ty,0) * -4deg));transition:transform .6s var(--ease)}
 .film-frame{position:relative;aspect-ratio:2.39/1;background:#000;overflow:hidden;box-shadow:0 60px 110px -30px #000,0 0 0 1px #ffffff12}
 .film-gate{position:absolute;inset:0;clip-path:inset(0 var(--pillar,0%) 0 var(--pillar,0%));transition:clip-path 1.3s cubic-bezier(.65,0,.25,1)}
@@ -307,7 +298,7 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 /* quantlab */
 .scene-quant{--len:320vh}
 .scene-quant .scene-pin{background:#020b09}
-#market-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transform:perspective(1600px) rotateX(calc((1 - var(--e,1)) * 12deg)) scale(calc(1.1 - var(--e,1) * .1));transform-origin:65% 60%}
+#market-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
 .quant-crt{position:absolute;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,#0000 0 2px,#0000002e 2px 3px),radial-gradient(ellipse at 65% 50%,transparent 55%,#000a 100%);mix-blend-mode:multiply}
 .quant-crt:after{content:'';position:absolute;inset:0;background:linear-gradient(#3dff9a08,#3dff9a00 30%);animation:crt 7s linear infinite}
 @keyframes crt{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
@@ -463,7 +454,7 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .pill{font-size:12.5px;color:#d2dce1;padding:6px 12px;border:1px solid #ffffff22;border-radius:20px}
 .timeline{position:relative;padding-left:28px}
 .timeline:before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:1px;background:#ffffff1c}
-.timeline:after{content:'';position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--amber);transform-origin:50% 0;transform:scaleY(var(--p,0))}
+.timeline:after{content:'';position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--amber);transform-origin:50% 0;transform:scaleY(1)}
 .tl-item{position:relative;display:flex;gap:22px;padding:26px 0;border-bottom:1px solid var(--line)}
 .tl-item:first-child{padding-top:0}
 .tl-item:before{content:'';position:absolute;left:-32px;top:30px;width:9px;height:9px;border-radius:50%;background:var(--ink);border:1px solid var(--amber)}
@@ -492,8 +483,6 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
  .keep-layout,.film-layout,.nfl-layout{display:flex;flex-direction:column;align-items:stretch;padding:84px 24px 64px;gap:40px}
  .keep-screen{width:100%;aspect-ratio:10/11;transform:none}
  .mac-app{width:70%!important;left:5%!important}
- .keep-callout,.keep-cursor{display:none}
- .desktop-hint{display:none}.mobile-hint{display:inline}
  .film-rig,.film-tilt{transform:none;opacity:1}
  .film-notes,.nfl-panel{grid-template-columns:1fr}
  .nfl-rig{max-width:none}
@@ -503,7 +492,6 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
  .quant-layout{padding:62vh 24px 72px}
  .quant-layout .project-copy{width:100%}
  .quant-shade{background:linear-gradient(0deg,#020b09 0%,#020b09f0 45%,#020b0966 68%,#020b0900 85%)}
- .fnote{transform:rotate(var(--r,0deg));transition:none}
 }
 @media(max-width:860px){
  .topbar{grid-template-columns:auto 1fr auto;padding:0 18px;gap:12px}.top-nav{display:none}.now-playing{justify-content:center;font-size:12px}
@@ -533,8 +521,8 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 @media(prefers-reduced-motion:reduce){
  *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
  .motion-control{display:none}
- .fnote,.scene-word,.h1-line>span,.hero-portrait,#market-canvas{transform:none!important}
- .keep-screen,.film-rig{transform:none!important;opacity:1!important}
+ .fall{display:none}
+ .keep-screen{transform:none!important}
 }
 </style>
 </head>
@@ -558,18 +546,7 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 
 <section class="scene scene-keep" id="keepnote" data-scene="keepnote" data-app="code" aria-labelledby="title-keepnote"><div class="scene-pin">
  <div class="scene-word" aria-hidden="true">KeepNote</div>
- <div class="keep-float" aria-hidden="true">
-  <div class="fnote" style="--x:46%;--y:1%;--w:112px;--z:.4;--r:-7deg;--o:.26;--b:2.5px"><div class="fnote-in" style="--c:#BFE5CC;--d:-2s"><b><span class="lang-en">idea</span><span class="lang-pt">ideia</span></b><span class="lang-en">RAG: measure recall before swapping the embedding</span><span class="lang-pt">RAG: medir recall antes de trocar o embedding</span></div></div>
-  <div class="fnote" style="--x:31%;--y:2%;--w:118px;--z:.35;--r:6deg;--o:.3;--b:2px"><div class="fnote-in" style="--c:#F6C1B1;--d:-4s"><b>## TODO</b><s>migrations v4</s><br><span class="lang-en">DMG release notes</span><span class="lang-pt">notas do DMG</span></div></div>
-  <div class="fnote can-lit" style="--x:84%;--y:7%;--w:170px;--z:.28;--r:9deg;--o:.85"><div class="fnote-in" style="--c:#BCD9F2;--d:-3s"><b>AES-GCM ✓</b><span class="lang-en">key stays in Keychain</span><span class="lang-pt">chave fica no Keychain</span></div></div>
-  <div class="fnote can-lit" style="--x:37%;--y:77%;--w:180px;--z:.28;--r:-6deg;--o:.85"><div class="fnote-in" style="--c:#F7E3A1;--d:-1s"><b><span class="lang-en">Esc tucks it away</span><span class="lang-pt">Esc recolhe tudo</span></b><span class="lang-en">notes wait at the edge</span><span class="lang-pt">as notas esperam na borda</span></div></div>
-  <div class="fnote can-lit" style="--x:60%;--y:86%;--w:150px;--z:.7;--r:5deg;--o:.6;--b:1px"><div class="fnote-in" style="--c:#D8CDF2;--d:-5.5s"><b><span class="lang-en">folder sync</span><span class="lang-pt">sync de pasta</span></b><span class="lang-en">keep both versions on conflict</span><span class="lang-pt">manter as duas versões no conflito</span></div></div>
-  <div class="fnote can-lit" style="--x:97%;--y:36%;--w:160px;--z:.6;--r:-8deg;--o:.55;--b:1px"><div class="fnote-in" style="--c:#F6C1B1;--d:-2.2s"><b><span class="lang-en">standup 3pm</span><span class="lang-pt">reunião 15h</span></b><span class="lang-en">show the edge deck</span><span class="lang-pt">mostrar o deck da borda</span></div></div>
-  <div class="fnote" style="--x:-11%;--y:74%;--w:220px;--z:1.6;--r:10deg;--o:.4;--b:7px"><div class="fnote-in" style="--c:#D8CDF2;--d:-5s"><b><span class="lang-en">read later</span><span class="lang-pt">ler depois</span></b>walk-forward evaluation</div></div>
-  <div class="fnote" style="--x:89%;--y:64%;--w:230px;--z:1.8;--r:-9deg;--o:.45;--b:8px"><div class="fnote-in" style="--c:#F7E3A1;--d:-2.5s"><b># Markdown</b><span class="lang-en">always</span><span class="lang-pt">sempre</span></div></div>
-  <div class="fnote" style="--x:18%;--y:92%;--w:130px;--z:.5;--r:3deg;--o:.32;--b:2px"><div class="fnote-in" style="--c:#BFE5CC;--d:-6s"><b><span class="lang-en">buy batteries</span><span class="lang-pt">comprar pilhas</span></b></div></div>
-  <div class="fnote can-lit" style="--x:57%;--y:-6%;--w:150px;--z:1.2;--r:-12deg;--o:.4;--b:4px"><div class="fnote-in" style="--c:#BFE5CC;--d:-1.5s"><b><span class="lang-en">ship v1.2</span><span class="lang-pt">lançar v1.2</span></b><span class="lang-en">notarize the DMG</span><span class="lang-pt">notarizar o DMG</span></div></div>
- </div>
+ <div class="keep-float" aria-hidden="true"></div>
  <div class="keep-layout">
   <div class="project-copy">
    <div class="project-featured"><span class="lang-en">Featured project</span><span class="lang-pt">Projeto em destaque</span></div>
@@ -585,18 +562,13 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
    <div class="mac-app app-code" aria-hidden="true"><div class="app-bar"><i></i><i></i><i></i><span>NoteStore.swift</span></div><pre class="code"><span class="l"><span class="c">// Note bodies are sealed before they touch the disk.</span></span><span class="l"><span class="k">struct</span> <span class="t">NoteStore</span> {</span><span class="l">  <span class="k">let</span> db: <span class="t">SQLiteDatabase</span></span><span class="l">  <span class="k">let</span> key: <span class="t">SymmetricKey</span></span><span class="l"> </span><span class="l">  <span class="k">func</span> <span class="f">save</span>(<span class="k">_</span> note: <span class="t">Note</span>) <span class="k">throws</span> {</span><span class="l">    <span class="k">let</span> box = <span class="k">try</span> <span class="t">AES</span>.<span class="t">GCM</span>.<span class="f">seal</span>(note.body, using: key)</span><span class="l">    <span class="k">try</span> db.<span class="f">upsert</span>(note.id, box.combined!)</span><span class="l">  }</span><span class="l"> </span><span class="l">  <span class="k">func</span> <span class="f">migrate</span>() <span class="k">throws</span> {</span><span class="l">    <span class="k">try</span> db.<span class="f">run</span>(<span class="s">"PRAGMA user_version = 4"</span>)<span class="caret"></span></span><span class="l">  }</span><span class="l">}</span></pre></div>
    <div class="mac-app app-data" aria-hidden="true"><div class="app-bar"><i></i><i></i><i></i><span>rag-eval.ipynb</span></div><div class="nb"><div class="nb-in"><b>In [7]:</b> runs.groupby("retriever").recall_at_5.mean()</div><div class="nb-chart"><i></i><i></i><i></i></div><div class="nb-axis"><span>bm25</span><span>dense</span><span>hybrid</span></div><div class="nb-out">hybrid  0.91 ± 0.02  (n=200)</div></div></div>
    <div class="mac-app app-read" aria-hidden="true"><div class="app-bar"><i></i><i></i><i></i><span><span class="lang-en">Reader</span><span class="lang-pt">Leitor</span></span></div><div class="read"><h4><span class="lang-en">Walk-forward, explained</span><span class="lang-pt">Walk-forward, explicado</span></h4><small><span class="lang-en">12 min read</span><span class="lang-pt">12 min de leitura</span></small><i></i><i></i><i></i><i></i><em><span class="lang-en">Pick the strategy on one window, judge it on the next.</span><span class="lang-pt">Escolha a estratégia numa janela, avalie na seguinte.</span></em><i></i><i></i><i></i><i></i><i></i></div></div>
-   <div class="keep-stage" id="keep-demo" data-expanded="false" data-touched="false" role="group" aria-label="Interactive KeepNote demonstration" data-en-label="Interactive KeepNote demonstration" data-pt-label="Demonstração interativa do KeepNote">
-    <div class="keep-beacon" aria-hidden="true"></div>
-    <div class="keep-callout" aria-hidden="true"><div><strong><span class="lang-en">Hover here</span><span class="lang-pt">Passe o mouse aqui</span></strong><small><span class="lang-en">Your notes unfold from the edge.</span><span class="lang-pt">Suas notas se abrem da borda.</span></small></div><svg viewBox="0 0 46 30" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22 C 14 4, 28 4, 40 14"/><path d="M31 13 L41 15 L38 5"/></svg></div>
-    <svg class="keep-cursor" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2 L3 18 L7.5 14 L10.5 20.5 L13.5 19 L10.5 12.8 L16.5 12.5 Z" fill="#fff" stroke="#111" stroke-width="1.3" stroke-linejoin="round"/></svg>
-    <button type="button" class="keep-stripe" aria-controls="keep-deck" aria-expanded="false" aria-label="Reveal notes" data-en-label="Reveal notes" data-pt-label="Revelar notas"><i style="--spine:#EBC550"></i><i style="--spine:#EE9279"></i><i style="--spine:#86CDA1"></i><i style="--spine:#86BCEB"></i><i style="--spine:#B09EEA"></i></button>
-    <div class="keep-deck" id="keep-deck" inert><button type="button" class="keep-tab" data-note="0" style="--paper:#F7E3A1;--spine:#EBC550" aria-expanded="false" aria-controls="keep-open-note"><span><span class="lang-en">Ideas</span><span class="lang-pt">Ideias</span></span></button><button type="button" class="keep-tab" data-note="1" style="--paper:#F6C1B1;--spine:#EE9279" aria-expanded="false" aria-controls="keep-open-note"><span><span class="lang-en">Reading</span><span class="lang-pt">Leitura</span></span></button><button type="button" class="keep-tab" data-note="2" style="--paper:#BFE5CC;--spine:#86CDA1" aria-expanded="false" aria-controls="keep-open-note"><span><span class="lang-en">This week</span><span class="lang-pt">Esta semana</span></span></button><button type="button" class="keep-tab" data-note="3" style="--paper:#BCD9F2;--spine:#86BCEB" aria-expanded="false" aria-controls="keep-open-note"><span><span class="lang-en">Work</span><span class="lang-pt">Trabalho</span></span></button><button type="button" class="keep-tab" data-note="4" style="--paper:#D8CDF2;--spine:#B09EEA" aria-expanded="false" aria-controls="keep-open-note"><span><span class="lang-en">Welcome</span><span class="lang-pt">Boas-vindas</span></span></button></div>
-    <button type="button" class="keep-preview" tabindex="-1" inert aria-hidden="true" aria-label="Open previewed note" data-en-label="Open previewed note" data-pt-label="Abrir nota da prévia"><span class="preview-spine"></span><span class="preview-body"><strong></strong><span class="preview-text"></span><small><span class="lang-en">Click to open</span><span class="lang-pt">Clique para abrir</span></small></span></button>
-    <div class="keep-note" id="keep-open-note" aria-hidden="true" role="group" aria-label="Open demonstration note" data-en-label="Open demonstration note" data-pt-label="Nota de demonstração aberta" inert>
-     <div class="note-spine"><button type="button" class="note-close" aria-label="Close note" data-en-label="Close note" data-pt-label="Fechar nota">×</button><span>KeepNote</span></div>
-     <div class="note-body"><strong id="note-heading">KeepNote</strong><label for="note-text"><span class="lang-en">Try writing. This demo doesn't save.</span><span class="lang-pt">Experimente escrever. A demonstração não salva.</span></label><textarea id="note-text" spellcheck="false"></textarea><div class="note-bottom" role="group" aria-label="Paper color" data-en-label="Paper color" data-pt-label="Cor do papel"><button type="button" class="note-color" style="--swatch:#EBC550" aria-pressed="true" aria-label="Yellow" data-en-label="Yellow" data-pt-label="Amarelo"></button><button type="button" class="note-color" style="--swatch:#EE9279" aria-pressed="false" aria-label="Coral" data-en-label="Coral" data-pt-label="Coral"></button><button type="button" class="note-color" style="--swatch:#86CDA1" aria-pressed="false" aria-label="Mint" data-en-label="Mint" data-pt-label="Menta"></button><button type="button" class="note-color" style="--swatch:#86BCEB" aria-pressed="false" aria-label="Blue" data-en-label="Blue" data-pt-label="Azul"></button><button type="button" class="note-color" style="--swatch:#B09EEA" aria-pressed="false" aria-label="Lilac" data-en-label="Lilac" data-pt-label="Lilás"></button></div></div>
-    </div>
-    <p class="stage-caption"><span class="desktop-hint"><span class="lang-en">Hover to preview, click to open.</span><span class="lang-pt">Passe o cursor para espiar, clique para abrir.</span></span><span class="mobile-hint"><span class="lang-en">Playing on its own. Tap a note to try it.</span><span class="lang-pt">Rodando sozinho. Toque numa nota para experimentar.</span></span></p>
+   <div class="keep-stage" id="keep-demo" data-state="resting" data-touched="false" role="group" aria-label="KeepNote demonstration. A user is working; move your mouse into the screen to take over." data-en-label="KeepNote demonstration. A user is working; move your mouse into the screen to take over." data-pt-label="Demonstração do KeepNote. Alguém está usando; leve o seu mouse até a tela para assumir.">
+    <button type="button" class="kn-stripe" aria-label="Reveal notes" data-en-label="Reveal notes" data-pt-label="Revelar notas"></button>
+    <div class="kn-deck"></div>
+    <div class="kn-peek" aria-hidden="true"><span class="kn-spine"></span><span class="kn-peek-body"><strong></strong><p></p><small></small></span></div>
+    <div class="kn-note" role="group" aria-label="Open note" data-en-label="Open note" data-pt-label="Nota aberta"><div class="kn-spine"><button type="button" class="kn-circle kn-close" aria-label="Close note" data-en-label="Close note" data-pt-label="Fechar nota">×</button><span class="kn-circle" aria-hidden="true">⤢</span><span class="kn-spine-title"></span></div><div class="kn-note-body"><strong class="kn-title"></strong><textarea class="kn-text" spellcheck="false" aria-label="Note text" data-en-label="Note text" data-pt-label="Texto da nota"></textarea><div class="kn-foot"><span class="kn-tags"></span><span class="kn-sw"><i style="--c:#EBC550"></i><i style="--c:#EE9279"></i><i style="--c:#86CDA1"></i><i style="--c:#86BCEB"></i><i style="--c:#B09EEA"></i></span></div></div></div>
+    <svg class="kn-cursor" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 2 L3 18 L7.5 14 L10.5 20.5 L13.5 19 L10.5 12.8 L16.5 12.5 Z" fill="#111" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    <p class="stage-caption"><span class="auto-hint"><span class="lang-en">Someone is using KeepNote. Move your mouse in to take over.</span><span class="lang-pt">Alguém está usando o KeepNote. Leve o seu mouse até a tela para assumir.</span></span><span class="own-hint"><span class="lang-en">Your turn: hover the right edge, click a tab.</span><span class="lang-pt">Sua vez: passe na borda direita, clique numa aba.</span></span></p>
    </div>
   </div></div>
  </div>
@@ -817,16 +789,10 @@ function renderNowPlaying(animate){
 /* Subtitles: short lines that tell the reader what is happening and what to try. */
 const sub=$('.subtitle'), subGhost=$('.sub-ghost'), subLive=$('.sub-live');
 const CUES={
- hero:['Scroll slowly. Each project here plays like a scene.','Role devagar. Cada projeto aqui funciona como uma cena.'],
- 'keep-intro':['This is KeepNote. Your notes live on the edge of the screen.','Esse é o KeepNote. Suas notas ficam na borda da tela.'],
- 'keep-code':['Always there while you code. Here is this week\'s list.','Sempre ali enquanto você programa. Olha a lista da semana.'],
- 'keep-data':['While you dig through data, the result goes on a note.','Enquanto você analisa dados, o resultado vai para uma nota.'],
- 'keep-read':['And while you read, nothing leaves the edge.','E enquanto você lê, nada sai da borda.'],
- 'keep-write':['This one opened by itself. It is writing to you.','Essa abriu sozinha. Ela está escrevendo para você.'],
- 'keep-turn':['Your turn: hover over the colored edge on the right.','Sua vez: passe o mouse na borda colorida, à direita.'],
+ hero:['Each project below plays on its own. Stop by any of them.','Cada projeto abaixo roda sozinho. Pare em qualquer um.'],
+ 'keep-intro':['This is KeepNote. Someone is using it on that Mac. Move your mouse in to take over.','Esse é o KeepNote, em uso naquele Mac. Leve o seu mouse até a tela para assumir.'],
  'keep-touched':['Click a note to open it. You can even write in it.','Clique numa nota para abrir. Dá até para escrever nela.'],
  'keep-open':['Press Esc, or click outside, to tuck it away.','Aperte Esc, ou clique fora, para guardar a nota.'],
- 'keep-mobile':['The notes open by themselves here. Tap one to try it.','Aqui as notas abrem sozinhas. Toque numa para experimentar.'],
  'film-1':['Espectro 24 reads what audiences feel about a film.','O Espectro 24 lê o que o público sente sobre um filme.'],
  'film-spec':['Each dot is a sampled review, placed by its star rating.','Cada ponto é uma avaliação da amostra, posicionada pela nota.'],
  'film-2':['Each review becomes themes: light, character, pacing, sound.','Cada avaliação vira temas: fotografia, personagem, ritmo, som.'],
@@ -850,11 +816,7 @@ let cueShown='', typeTimer=0;
 function cueKey(){
  const p=sceneP[active]??0;
  switch(active){
-  case 'keepnote':
-   if(keep.state.touched)return keep.state.opened?'keep-open':'keep-touched';
-   if(!pinned.matches||!finePointer.matches)return 'keep-mobile';
-   return ['keep-intro','keep-intro','keep-code','keep-data','keep-read','keep-write','keep-turn'][(keep.state.phase??-2)+2]||'keep-intro';
-  case 'nfl':return !pinned.matches?'nfl':p<.1?'nfl-1':p<.85?'nfl-2':'nfl-3';
+  case 'keepnote':return keep.state.touched?(keep.state.opened?'keep-open':'keep-touched'):'keep-intro';
   case 'espectro':return ['film-1','film-2','film-spec','film-3'][film.segment()+1];
   case 'quant':{const ph=market.phase();if(ph==='open')return finePointer.matches&&!market.keyed()?'quant-type':'quant-1';if(ph==='recover')return finePointer.matches?'quant-2':'quant-1';return {pre:'quant-1',shock:'quant-shock',halt:'quant-halt',close:'quant-close'}[ph];}
   default:return active;
@@ -882,206 +844,276 @@ hero.addEventListener('pointermove',e=>{
 });
 hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--mx',0);hero.style.setProperty('--my',0);});
 
-/* KeepNote: a spring-driven copy of the app's edge deck. */
+/* KeepNote: the edge deck rebuilt from the app's own metrics and springs (stripe 12, column 74, tab 48×104,
+   peek 244×170, note 380×300). A user inside the screen drives it on a loop; move your mouse in to take over. */
 const keep=(()=>{
- const section=$('#keepnote'), stage=$('#keep-demo'), deck=$('#keep-deck'), stripe=$('.keep-stripe'), tabs=$$('.keep-tab');
- const preview=$('.keep-preview'), note=$('.keep-note'), text=$('#note-text');
- const palette=[['#F7E3A1','#EBC550'],['#F6C1B1','#EE9279'],['#BFE5CC','#86CDA1'],['#BCD9F2','#86BCEB'],['#D8CDF2','#B09EEA']];
- const notes=[
-  {color:0,title:{en:'Ideas',pt:'Ideias'},body:{en:'A thought, before it gets away.\n\n- KeepNote widget?\n- Float Note on ⌥⌘P\n#someday',pt:'Uma ideia, antes que ela escape.\n\n- Widget do KeepNote?\n- Float Note no ⌥⌘P\n#algumdia'}},
-  {color:1,title:{en:'Reading',pt:'Leitura'},body:{en:'Walk-forward beats in-sample tuning.\n\nRe-read chapter 4 before the next backtest.\n#quant',pt:'Walk-forward vence ajuste in-sample.\n\nReler o capítulo 4 antes do próximo backtest.\n#quant'}},
-  {color:2,title:{en:'This week',pt:'Esta semana'},body:{en:'- [x] migration to v4\n- [ ] DMG release notes\n- [ ] answer issue #12',pt:'- [x] migração para v4\n- [ ] notas de release do DMG\n- [ ] responder a issue #12'}},
-  {color:3,title:{en:'Work',pt:'Trabalho'},body:{en:'RAG eval: hybrid retriever wins.\n\nrecall@5 0.91 vs 0.78 dense.\nShip it after the ablation.',pt:'Avaliação RAG: o retriever híbrido vence.\n\nrecall@5 0.91 vs 0.78 do denso.\nSobe depois da ablação.'}},
-  {color:4,title:{en:'Welcome',pt:'Boas-vindas'},body:{en:"Hi! I'm a real note.\n\nWrite here, or hover the colored edge to see the others.\n\nEsc tucks me away.",pt:'Oi! Eu sou uma nota de verdade.\n\nEscreva aqui, ou passe o mouse na borda colorida para ver as outras.\n\nEsc me guarda de volta.'}}
+ const section=$('#keepnote'), stage=$('#keep-demo'), stripe=$('.kn-stripe',stage), deck=$('.kn-deck',stage);
+ const peek=$('.kn-peek',stage), note=$('.kn-note',stage), ghost=$('.kn-cursor',stage), text=$('.kn-text',note);
+ const PAL=[['#F7E3A1','#EBC550'],['#F6C1B1','#EE9279'],['#BFE5CC','#86CDA1'],['#BCD9F2','#86BCEB'],['#D8CDF2','#B09EEA']];
+ const NOTES=[
+  {c:0,tag:'someday',title:{en:'Ideas',pt:'Ideias'},body:{en:'A thought, before it gets away.\n\n- KeepNote widget?\n- Float Note on ⌥⌘P',pt:'Uma ideia, antes que ela escape.\n\n- Widget do KeepNote?\n- Float Note no ⌥⌘P'}},
+  {c:1,tag:'quant',title:{en:'Reading',pt:'Leitura'},body:{en:'Walk-forward beats in-sample tuning.\n\nRe-read chapter 4 before the next backtest.',pt:'Walk-forward vence ajuste in-sample.\n\nReler o capítulo 4 antes do próximo backtest.'}},
+  {c:2,tag:'release',title:{en:'This week',pt:'Esta semana'},body:{en:'- [x] migration to v4\n- [ ] DMG release notes\n- [ ] answer issue #12',pt:'- [x] migração para v4\n- [ ] notas de release do DMG\n- [ ] responder a issue #12'}},
+  {c:3,tag:'rag',title:{en:'Work',pt:'Trabalho'},body:{en:'RAG eval: hybrid retriever wins.\n\nrecall@5 0.91 vs 0.78 dense.',pt:'Avaliação RAG: o retriever híbrido vence.\n\nrecall@5 0.91 vs 0.78 do denso.'}},
+  {c:4,tag:'hello',title:{en:'Welcome',pt:'Boas-vindas'},body:{en:"Hi! I'm a real note.\n\nEsc tucks me back into the edge.",pt:'Oi! Eu sou uma nota de verdade.\n\nEsc me guarda de volta na borda.'}}
  ];
- const DECK_W=100, TAB_W=60, LIFT=18, GAP=18;
- const state={touched:false,opened:false};
- let tabH=120, expanded=false, hovered=-1, opened=-1, closeTimer=0, peekTimer=0, settleTimer=0, tour=false;
- const pending=new Map(), timers=new Set();
- // A single integrator retains velocity when a running animation changes target.
- let raf=0,last=0;
- const configs={deck:[.34,.78],hover:[.24,.8],peek:[.3,.86],note:[.38,.84]};
- function setGeometry(el,v){for(const k in v)el.style[k]=k==='opacity'?clamp(v[k]):v[k]+'px';}
- function snap(el,v){pending.delete(el);setGeometry(el,v);}
+ const TYPED={en:['Note to self: this cursor is not yours.','Yes, it really works like this.','Move your mouse in and try it.','Small notes. Carefully built.'],pt:['Nota mental: esse cursor não é o seu.','Sim, no app é assim mesmo.','Leve o seu mouse até a tela e teste.','Pequenas notas. Feitas com cuidado.']};
+ const N=NOTES.length, state={touched:false,opened:false};
+ const pretty=s=>s.replace(/^- \[x\] /gm,'☑ ').replace(/^- \[ \] /gm,'☐ ').replace(/^- /gm,'• ');
+ const colorize=(el,c)=>{el.style.setProperty('--paper',PAL[c][0]);el.style.setProperty('--spine',PAL[c][1]);};
+
+ // Build stripe dashes, tabs and the two round buttons.
+ NOTES.forEach(n=>{const i=document.createElement('i');i.style.setProperty('--spine',PAL[n.c][1]);stripe.appendChild(i);});
+ const tabs=NOTES.map((n,i)=>{const b=document.createElement('button');b.type='button';b.className='kn-tab';colorize(b,n.c);b.innerHTML=`<span><span class="lang-en">${n.title.en}</span><span class="lang-pt">${n.title.pt}</span></span>`;deck.appendChild(b);return b;});
+ const btns=['+','▦'].map((g,j)=>{const b=document.createElement('span');b.className='kn-btn';b.setAttribute('aria-hidden','true');b.textContent=g;deck.appendChild(b);return b;});
+
+ // Springs (mass 1). Retargeting keeps velocity, like SpringTicker.
+ const SP=(r,z)=>({k:(2*Math.PI/r)**2,c:4*Math.PI*z/r});
+ const CFG={note:SP(.36,.84),peek:SP(.28,.88),deck:SP(.32,.80),hover:SP(.22,.80),fade:SP(.08,1)};
+ const anims=new Map();let raf=0,last=0;
+ function set(el,v){for(const p in v)el.style[p]=p==='opacity'?clamp(v[p]):Math.round(v[p]*2)/2+'px';}
+ function snap(el,v){anims.delete(el);set(el,v);}
  function move(el,target,kind){
-  if(reduce.matches){snap(el,target);return;}
-  let a=pending.get(el);
-  if(!a){a={current:{},velocity:{},target:{},kind};pending.set(el,a);}
-  for(const k in target){
-   if(!(k in a.current)){a.current[k]=parseFloat(el.style[k]);if(!Number.isFinite(a.current[k]))a.current[k]=k==='opacity'?0:target[k];a.velocity[k]=0;}
-   a.target[k]=target[k];
-  }
-  a.kind=kind;
-  if(!raf){last=performance.now();raf=requestAnimationFrame(tick);}
+  if(reduce.matches){const {opacity,...geo}=target;set(el,geo);if(opacity===undefined)return;kind='fade';target={opacity};}
+  let a=anims.get(el);if(!a){a={cur:{},vel:{},tgt:{}};anims.set(el,a);}
+  for(const p in target){if(!(p in a.cur)){const v=parseFloat(el.style[p]);a.cur[p]=Number.isFinite(v)?v:(p==='opacity'?0:target[p]);a.vel[p]=0;}a.tgt[p]=target[p];}
+  a.kind=kind;if(!raf){last=performance.now();raf=requestAnimationFrame(tick);}
  }
  function tick(now){
-  const dt=Math.min((now-last)/1000,.05);last=now;
-  for(const [el,a] of pending){
-   const [response,zeta]=configs[a.kind],k=(2*Math.PI/response)**2,c=4*Math.PI*zeta/response;
-   let resting=true;
-   for(const key in a.target){
-    let remain=dt;while(remain>0){const h=Math.min(remain,1/240);a.velocity[key]+=(k*(a.target[key]-a.current[key])-c*a.velocity[key])*h;a.current[key]+=a.velocity[key]*h;remain-=h;}
-    const eps=key==='opacity'?.004:.25;
-    if(Math.abs(a.current[key]-a.target[key])>eps||Math.abs(a.velocity[key])>8*eps)resting=false;
+  const dt=Math.min((now-last)/1000,.25);last=now;
+  for(const [el,a] of anims){
+   const {k,c}=CFG[a.kind];let rest=true;
+   for(const p in a.tgt){
+    let r=dt;while(r>0){const h=Math.min(r,1/240);a.vel[p]+=(k*(a.tgt[p]-a.cur[p])-c*a.vel[p])*h;a.cur[p]+=a.vel[p]*h;r-=h;}
+    const e=p==='opacity'?.004:.25;if(Math.abs(a.cur[p]-a.tgt[p])>e||Math.abs(a.vel[p])>8*e)rest=false;
    }
-   setGeometry(el,a.current);
-   if(resting){setGeometry(el,a.target);pending.delete(el);}
+   set(el,a.cur);if(rest){set(el,a.tgt);anims.delete(el);}
   }
-  raf=pending.size?requestAnimationFrame(tick):0;
+  raf=anims.size?requestAnimationFrame(tick):0;
  }
- function later(fn,delay){const id=setTimeout(()=>{timers.delete(id);fn();},reduce.matches?0:delay);timers.add(id);}
- function clearStagger(){timers.forEach(clearTimeout);timers.clear();}
- function clearCollapse(){clearTimeout(closeTimer);clearTimeout(settleTimer);}
- const tabTop=i=>i*(tabH+GAP);
+ const timers=new Set();
+ function later(fn,ms){if(reduce.matches||!ms){fn();return;}const id=setTimeout(()=>{timers.delete(id);fn();},ms);timers.add(id);}
+ function clearTimers(){timers.forEach(clearTimeout);timers.clear();}
+
+ // Geometry in stage pixels; k scales the app's points to the size of this screen.
+ let k=1,W=0,H=0;
+ const u=v=>v*k;
+ const colX=()=>W-u(74);
+ const deckTop=()=>Math.max(u(12),(H-(N*u(110)-u(6))-u(40))/2);
+ const tabTop=i=>deckTop()+i*u(110);
+ const tabGeo=i=>hovered===i?{left:u(14),width:u(60)}:{left:u(26),width:u(48)};
+ const tabRect=i=>{const g=tabGeo(i);return {left:colX()+g.left,top:tabTop(i),width:g.width,height:u(104)};};
+ const cardTop=(i,h)=>clamp(tabTop(i)+u(52)-h/2,u(8),H-h-u(8));
+ const peekRect=i=>{const w=u(244),h=u(170);return {left:W-u(44)-w,top:cardTop(i,h),width:w,height:h};};
+ const noteRect=i=>{const w=u(380),h=u(300);return {left:W-w,top:cardTop(i,h),width:w,height:h};};
+ const btnLeft=j=>u(74-6-28-(1-j)*36);
+ const btnTop=()=>tabTop(N-1)+u(104)+u(12);
+ let stripeH=0;
  function layout(){
-  const H=stage.clientHeight;
-  const n=tabs.length;tabH=Math.round(clamp((H-60-(n-1)*GAP)/n,56,130));
-  const dh=n*tabH+(n-1)*GAP;
-  deck.style.height=dh+'px';deck.style.top=Math.round((H-dh)/2)+'px';
-  tabs.forEach((t,i)=>{t.style.top=tabTop(i)+'px';t.style.height=tabH+'px';});
+  W=stage.clientWidth;H=stage.clientHeight;
+  k=Math.min(1,(H-24-u0(52))/(N*110-6),(W-30)/380);
+  stage.style.setProperty('--k',k.toFixed(3));
+  stripeH=u(N*15+(N-1)*5+14);
+  Object.assign(stripe.style,{width:u(12)+'px',height:stripeH+'px',top:(H-stripeH)/2+'px'});
+  deck.style.width=u(74)+'px';
+  tabs.forEach((t,i)=>{t.style.top=tabTop(i)+'px';t.style.height=u(104)+'px';if(!anims.has(t))set(t,expanded?{...tabGeo(i),opacity:1}:{left:u(74),width:u(48),opacity:0});});
+  btns.forEach((b,j)=>{b.style.top=btnTop()+'px';b.style.width=b.style.height=u(28)+'px';if(!anims.has(b))set(b,{left:expanded?btnLeft(j):u(74),opacity:expanded?1:0});});
+  if(opened!==-1)snap(note,{...noteRect(opened),opacity:1});
+  if(peekShown)snap(peek,{...peekRect(peekIdx),opacity:1});
  }
- const tabLeft=i=>hovered===i?DECK_W-TAB_W-LIFT:DECK_W-TAB_W;
- function tabRect(i){return {left:stage.clientWidth-TAB_W,top:deck.offsetTop+tabTop(i),width:TAB_W,height:tabH,opacity:0};}
- function centerY(i,h){return clamp(deck.offsetTop+tabTop(i)+tabH/2-h/2,10,stage.clientHeight-h-10);}
- function noteRect(i){const W=stage.clientWidth,H=stage.clientHeight,width=Math.min(450,W-24),height=Math.min(390,H-20);return {left:W-width,top:centerY(i,height),width,height,opacity:1};}
- function previewRect(i){const W=stage.clientWidth,width=Math.min(330,W-TAB_W-LIFT-24),height=Math.min(Math.max(tabH+40,180),stage.clientHeight-20);return {left:W-TAB_W-LIFT+4-width,top:centerY(i,height),width,height,opacity:1};}
- function colorize(el,c){el.style.setProperty('--paper',palette[c][0]);el.style.setProperty('--spine',palette[c][1]);}
- function showDeck(){
-  clearCollapse();if(expanded)return;
-  clearStagger();expanded=true;stage.dataset.expanded='true';stripe.setAttribute('aria-expanded','true');deck.inert=false;
-  tabs.forEach((tab,i)=>later(()=>move(tab,{left:tabLeft(i),width:TAB_W+(hovered===i?LIFT:0),opacity:1},'deck'),i*55));
+ function u0(v){return v;}
+
+ // States: resting stripe → fanned deck → hovered tab with peek → anchored note.
+ let expanded=false,hovered=-1,opened=-1,peekShown=false,peekIdx=-1,graceT=0,peekT=0,settleT=0,overPeek=false,inDeck=false;
+ function openDeck(){
+  clearTimeout(graceT);clearTimeout(settleT);if(expanded)return;
+  expanded=true;stage.dataset.state='fanned';clearTimers();
+  tabs.forEach((t,i)=>{if(!anims.has(t))snap(t,{left:u(74),width:u(48),opacity:0});later(()=>move(t,{...tabGeo(i),opacity:1},'deck'),i*45);});
+  btns.forEach((b,j)=>later(()=>move(b,{left:btnLeft(j),opacity:1},'deck'),Math.min(N,8)*45+j*45));
  }
- function hideDeck(restoreFocus=false){
-  if(opened!==-1)return;
-  clearStagger();hidePeek();expanded=false;deck.inert=true;hovered=-1;
-  tabs.forEach((tab,i)=>{tab.classList.remove('is-hovered');later(()=>move(tab,{left:DECK_W,width:TAB_W,opacity:0},'deck'),(tabs.length-1-i)*22);});
-  settleTimer=setTimeout(()=>{if(!expanded){stage.dataset.expanded='false';stripe.setAttribute('aria-expanded','false');if(restoreFocus)stripe.focus({preventScroll:true});}},reduce.matches?0:tabs.length*22+520);
+ function closeDeck(){
+  if(!expanded||opened!==-1)return;
+  expanded=false;clearTimers();hidePeek();hovered=-1;
+  const order=[...btns.slice().reverse(),...tabs.slice().reverse()];
+  order.forEach((el,j)=>later(()=>{el.classList.remove('hover');move(el,el.classList.contains('kn-tab')?{left:u(74),width:u(48),opacity:0}:{left:u(74),opacity:0},'deck');},j*18));
+  settleT=setTimeout(()=>{if(!expanded)stage.dataset.state='resting';},reduce.matches?0:order.length*18+500);
  }
- function queueCollapse(){if(tour||auto.running)return;clearTimeout(closeTimer);if(opened===-1)closeTimer=setTimeout(()=>{if(!deck.contains(document.activeElement)&&!preview.matches(':focus'))hideDeck();},360);}
- function hidePeek(){
-  clearTimeout(peekTimer);if(opened===-1)light(-1);preview.style.pointerEvents='none';preview.tabIndex=-1;preview.inert=true;preview.setAttribute('aria-hidden','true');
-  const r=parseFloat(preview.style.left)+parseFloat(preview.style.width);
-  if(Number.isFinite(r))move(preview,{left:r-44,width:44,opacity:0},'peek');
+ function scheduleClose(){clearTimeout(graceT);graceT=setTimeout(()=>{if(!inDeck&&!overPeek&&opened===-1)closeDeck();},320);}
+ function hoverTab(i){
+  if(hovered===i)return;hovered=i;
+  tabs.forEach((t,j)=>{t.classList.toggle('hover',j===i);if(expanded)move(t,{...tabGeo(j),opacity:1},'hover');});
+  if(opened===-1)showPeek(i);
  }
- function relaxTabs(){hovered=-1;tabs.forEach((tab,i)=>{tab.classList.remove('is-hovered');if(expanded)move(tab,{left:tabLeft(i),width:TAB_W,opacity:1},'hover');});}
+ function unhover(){
+  if(hovered===-1)return;hovered=-1;
+  tabs.forEach((t,j)=>{t.classList.remove('hover');if(expanded)move(t,{...tabGeo(j),opacity:1},'hover');});
+  clearTimeout(peekT);peekT=setTimeout(()=>{if(!overPeek&&hovered===-1)hidePeek();},140);
+ }
+ function fillPeek(i){
+  const n=NOTES[i];colorize(peek,n.c);$('strong',peek).textContent=n.title[lang()];
+  $('p',peek).textContent=pretty((n.edit&&n.edit[lang()])||n.body[lang()]).split('\n\n')[0];
+  $('small',peek).textContent=`#${n.tag}   ${copy('edited today','editado hoje')}`;
+ }
  function showPeek(i){
-  clearCollapse();clearTimeout(peekTimer);showDeck();if(opened!==-1)return;
-  clearStagger();const first=preview.style.opacity===''||parseFloat(preview.style.opacity)<.05;hovered=i;
-  tabs.forEach((tab,j)=>{tab.classList.toggle('is-hovered',j===i);move(tab,{left:tabLeft(j),width:TAB_W+(j===i?LIFT:0),opacity:1},'hover');});
-  const data=notes[i],rect=previewRect(i);colorize(preview,data.color);light(data.color);
-  $('.preview-body strong',preview).textContent=data.title[lang()];$('.preview-text',preview).textContent=data.body[lang()].split('\n\n')[0].replace(/^- \[x\] /gm,'☑ ').replace(/^- \[ \] /gm,'☐ ').replace(/^- /gm,'• ');
-  if(first)snap(preview,{...rect,left:rect.left+rect.width-44,width:44,opacity:0});
-  move(preview,rect,'peek');preview.style.pointerEvents='auto';preview.tabIndex=0;preview.inert=false;preview.setAttribute('aria-hidden','false');
+  clearTimeout(peekT);fillPeek(i);peekIdx=i;const r=peekRect(i);
+  if(!peekShown)snap(peek,{...r,left:r.left+r.width-u(48),width:u(48),opacity:0});
+  peekShown=true;move(peek,{...r,opacity:1},'peek');
  }
- function openNote(i,{focus=true}={}){
-  if(i<0)return;showDeck();hidePeek();const wasOpen=opened!==-1;opened=i;state.opened=true;
-  const data=notes[i];colorize(note,data.color);light(data.color);$('#note-heading').textContent=data.title[lang()];text.value=(data.edits&&data.edits[lang()])??data.body[lang()];
-  $$('.note-color').forEach((el,j)=>el.setAttribute('aria-pressed',String(j===data.color)));
-  tabs.forEach((el,j)=>el.setAttribute('aria-expanded',String(j===i)));
-  if(!wasOpen)snap(note,tabRect(i));note.inert=false;note.setAttribute('aria-hidden','false');note.style.pointerEvents='auto';move(note,noteRect(i),'note');
-  if(focus)$('.note-close').focus({preventScroll:true});
+ function hidePeek(){
+  clearTimeout(peekT);if(!peekShown)return;peekShown=false;
+  const l=parseFloat(peek.style.left),w=parseFloat(peek.style.width);move(peek,{left:l+w-u(48),width:u(48),opacity:0},'peek');
+ }
+ function fillNote(i){
+  const n=NOTES[i];colorize(note,n.c);$('.kn-title',note).textContent=n.title[lang()];$('.kn-spine-title',note).textContent=n.title[lang()];
+  text.value=(n.edit&&n.edit[lang()])??n.body[lang()];$('.kn-tags',note).textContent='#'+n.tag;
+ }
+ function openNote(i,{focus=false}={}){
+  if(i<0)return;openDeck();hidePeek();const was=opened!==-1;opened=i;state.opened=true;fillNote(i);
+  if(!was)snap(note,{...tabRect(i),opacity:0});
+  note.classList.add('open');move(note,{...noteRect(i),opacity:1},'note');
+  if(focus)text.focus({preventScroll:true});
   updateCue();
  }
- function closeNote(restoreFocus=false,silent=false){
-  if(opened===-1)return;const i=opened;if(note.contains(document.activeElement))document.activeElement.blur();
-  clearInterval(typer);light(-1);opened=-1;state.opened=false;note.inert=true;note.setAttribute('aria-hidden','true');note.style.pointerEvents='none';move(note,tabRect(i),'note');tabs[i].setAttribute('aria-expanded','false');
-  if(restoreFocus)tabs[i].focus({preventScroll:true});else if(!silent)queueCollapse();
+ function closeNote(){
+  if(opened===-1)return;const i=opened;opened=-1;state.opened=false;stopTyping();
+  if(note.contains(document.activeElement))document.activeElement.blur();
+  note.classList.remove('open');move(note,{...tabRect(i),opacity:0},'note');
+  if(!inDeck)scheduleClose();
   updateCue();
  }
- // A note that writes itself: the page talking back during the tour.
- let typer=0;
- function typeNote(i){
-  clearInterval(typer);const full=notes[i].body[lang()];
-  if(reduce.matches||paused){text.value=full;return;}
-  let k=0;text.value='';typer=setInterval(()=>{k++;text.value=full.slice(0,k);if(k>=full.length)clearInterval(typer);},34);
+
+ // One pointer model for both the ghost user and the visitor's mouse.
+ function hitTab(x,y){if(x<colX()+u(14))return -1;for(let i=0;i<N;i++){const t=tabTop(i);if(y>=t&&y<=t+u(104))return i;}return -1;}
+ function within(el,x,y){const l=parseFloat(el.style.left),t=parseFloat(el.style.top),w=parseFloat(el.style.width),h=parseFloat(el.style.height);return x>=l&&x<=l+w&&y>=t&&y<=t+h;}
+ function pointerAt(x,y){
+  overPeek=peekShown&&within(peek,x,y);
+  if(!expanded){if(x>=W-u(18)&&Math.abs(y-H/2)<=stripeH/2+u(10))openDeck();else return;}
+  inDeck=x>=colX();
+  if(inDeck){clearTimeout(graceT);const i=hitTab(x,y);if(i>=0)hoverTab(i);else unhover();}
+  else{unhover();if(overPeek){clearTimeout(graceT);clearTimeout(peekT);}else if(opened===-1)scheduleClose();}
  }
- const floats=$$('.fnote.can-lit',section), paperOf=el=>el.querySelector('.fnote-in').style.getPropertyValue('--c').trim().toUpperCase();
- function light(c){const hex=c<0?'':palette[c][0];floats.forEach(f=>f.classList.toggle('lit',hex!==''&&paperOf(f)===hex));}
- function touch(){if(state.touched)return;clearInterval(typer);state.touched=true;tour=false;stage.dataset.touched='true';stopAuto();updateCue();}
-
- // Mobile and touch screens: the demo plays itself until someone taps it.
- const auto={running:false,timers:[]};
- function startAuto(){if(auto.running||state.touched||still())return;auto.running=true;stage.dataset.auto='true';cycle();}
- function cycle(){
-  const steps=[[350,()=>showDeck()],[900,()=>showPeek(2)],[1700,()=>showPeek(3)],[1700,()=>showPeek(1)],[1700,()=>showPeek(0)],[1500,()=>{openNote(4,{focus:false});typeNote(4);}],[5200,()=>closeNote(false,true)],[800,()=>hideDeck()],[2200,cycle]];
-  let t=0;steps.forEach(([d,fn])=>{t+=d;auto.timers.push(setTimeout(()=>{if(auto.running)fn();},t));});
+ function pointerDown(x,y){
+  if(opened!==-1){if(within(note,x,y))return 'note';closeNote();return 'out';}
+  if(!expanded)return;
+  const i=x>=colX()?hitTab(x,y):-1;
+  if(i>=0){openNote(i);return 'tab';}
+  if(overPeek&&peekIdx>=0){openNote(peekIdx);return 'tab';}
  }
- function stopAuto(){if(!auto.running)return;auto.running=false;auto.timers.forEach(clearTimeout);auto.timers=[];stage.dataset.auto='false';}
+ function pointerLeave(){inDeck=false;overPeek=false;unhover();if(opened===-1)scheduleClose();}
 
- // Desktop: scrolling changes what you're doing on the Mac; the matching note peeks out,
- // then a welcome note opens and writes to the reader.
- const TOUR=[{at:.2,app:'code',peek:2},{at:.36,app:'data',peek:3},{at:.52,app:'read',peek:1},{at:.66,app:'read',open:4},{at:.82,app:'read',end:true}];
- state.phase=null;
- function setApp(a){if(section.dataset.app!==a)section.dataset.app=a;}
- hooks.keepnote=p=>{
-  section.style.setProperty('--e',ease(clamp(p/.15)).toFixed(4));
-  if(state.touched||!pinned.matches||!finePointer.matches)return;
-  let ph=p<.15?-2:-1;TOUR.forEach((s,i)=>{if(p>=s.at)ph=i;});
-  if(ph===state.phase)return;
-  state.phase=ph;
-  if(p<.15){setApp('code');if(tour){tour=false;if(opened!==-1)closeNote(false,true);hideDeck();}return;}
-  const step=TOUR[ph];
-  if(!step){setApp('code');tour=true;if(opened!==-1)closeNote(false,true);showDeck();if(hovered!==-1){hidePeek();relaxTabs();}return;}
-  setApp(step.app);
-  if(step.end){if(opened!==-1)closeNote(false,true);tour=false;hovered=-1;hideDeck();return;}
-  tour=true;
-  if(step.open!==undefined){if(opened!==step.open){openNote(step.open,{focus:false});typeNote(step.open);}return;}
-  if(opened!==-1)closeNote(false,true);
-  showPeek(step.peek);
- };
+ // The user inside the screen.
+ const auto={on:true,raf:0,steps:[],cur:null,pos:{x:0,y:0},round:0,last:0,typer:0};
+ let visible=false,releaseT=0;
+ const easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+ function placeGhost(){ghost.style.transform=`translate(${auto.pos.x.toFixed(1)}px,${auto.pos.y.toFixed(1)}px)`;}
+ function press(){ghost.classList.remove('press');void ghost.offsetWidth;ghost.classList.add('press');}
+ function stopTyping(){clearInterval(auto.typer);}
+ function typeLine(step){
+  if(opened===-1){step.dur=0;return;}
+  const lines=TYPED[lang()],line='\n\n'+lines[auto.round%lines.length];let n=0;
+  step.dur=line.length*42+250;stopTyping();
+  auto.typer=setInterval(()=>{n++;text.value+=line[n-1]||'';text.scrollTop=text.scrollHeight;if(n>=line.length)stopTyping();},42);
+ }
+ function script(){
+  const i=(auto.round*2+2)%N;section.dataset.app=['code','data','read'][auto.round%3];
+  const tabC=j=>()=>({x:colX()+u(48),y:tabTop(j)+u(50)});
+  const S=[{to:()=>({x:W*.4,y:H*.58}),dur:900},{wait:700},{to:()=>({x:W-u(5),y:H/2+u(6)}),dur:1150},{wait:450}];
+  const path=[];for(let j=0;j<=i;j++)path.push(j);if(i<2)path.push(i+1,i);
+  path.forEach((j,n)=>S.push({to:tabC(j),dur:n?360:520},{wait:n===path.length-1?700:430}));
+  S.push({down:true},{wait:800});
+  S.push({to:()=>{const r=noteRect(i);return {x:r.left+r.width*.58,y:r.top+r.height*.66};},dur:650},{wait:250},{type:true},{wait:1200});
+  S.push({to:()=>({x:W*.3,y:H*.7}),dur:850},{wait:300},{down:true},{wait:2300});
+  return S;
+ }
+ function runAuto(now){
+  auto.raf=0;if(!auto.on||!visible||still())return;
+  const dt=Math.min(100,now-auto.last);auto.last=now;
+  let c=auto.cur;
+  if(!c){
+   c=auto.steps.shift();if(!c){auto.round++;auto.steps=script();c=auto.steps.shift();}
+   c.t=0;if(c.to){c.from={...auto.pos};c.dest=c.to();}
+   if(c.down){press();pointerDown(auto.pos.x,auto.pos.y);}
+   if(c.type)typeLine(c);
+   auto.cur=c;
+  }
+  c.t+=dt;
+  if(c.to){
+   const e=easeIO(clamp(c.t/c.dur)),dx=c.dest.x-c.from.x,dy=c.dest.y-c.from.y,arc=Math.sin(e*Math.PI)*.12;
+   auto.pos.x=c.from.x+dx*e-dy*arc;auto.pos.y=c.from.y+dy*e+dx*arc*.5;placeGhost();pointerAt(auto.pos.x,auto.pos.y);
+   if(c.t>=c.dur)auto.cur=null;
+  }else if(c.t>=(c.wait??c.dur??0))auto.cur=null;
+  auto.raf=requestAnimationFrame(runAuto);
+ }
+ function startAuto(){
+  if(!auto.on||!visible||still()||auto.raf)return;
+  ghost.classList.add('on');if(!auto.steps.length&&!auto.cur){auto.pos={x:W*.4,y:H*.62};placeGhost();auto.steps=script();}
+  auto.last=performance.now();auto.raf=requestAnimationFrame(runAuto);
+ }
+ function haltAuto(){cancelAnimationFrame(auto.raf);auto.raf=0;stopTyping();}
+ function resetAuto(){haltAuto();auto.cur=null;auto.steps=[];if(opened!==-1)closeNote();pointerLeave();}
+ function takeOver(){
+  clearTimeout(releaseT);if(!auto.on)return;
+  auto.on=false;resetAuto();ghost.classList.remove('on');state.touched=true;stage.dataset.touched='true';updateCue();
+ }
+ function releaseLater(){
+  clearTimeout(releaseT);
+  releaseT=setTimeout(()=>{if(opened!==-1)closeNote();pointerLeave();auto.on=true;state.touched=false;stage.dataset.touched='false';updateCue();setTimeout(startAuto,900);},2600);
+ }
 
- stripe.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){touch();showDeck();}});
- stripe.addEventListener('click',()=>{touch();showDeck();tabs[0].focus({preventScroll:true});});
- stripe.addEventListener('pointerleave',queueCollapse);
- stage.addEventListener('pointermove',e=>{
-  if(e.pointerType!=='mouse')return;
-  const r=stage.getBoundingClientRect();
-  if(e.clientX>=r.right-70&&opened===-1){touch();showDeck();}
+ // The visitor's own mouse, touch and keyboard.
+ const local=e=>{const r=stage.getBoundingClientRect();return [(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height];};
+ stage.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;takeOver();const [x,y]=local(e);pointerAt(x,y);});
+ stage.addEventListener('pointerleave',e=>{if(e.pointerType!=='mouse')return;pointerLeave();releaseLater();});
+ stage.addEventListener('pointerdown',e=>{
+  if(e.button)return;takeOver();const [x,y]=local(e);
+  if(e.pointerType!=='mouse'){if(!expanded){openDeck();releaseLater();return;}pointerAt(x,y);}
+  const r=pointerDown(x,y);if(r==='tab'){e.preventDefault();}
+  if(e.pointerType!=='mouse')releaseLater();
  });
- stage.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')queueCollapse();});
- stage.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'&&auto.running){stopAuto();touch();}});
- deck.addEventListener('pointerenter',clearCollapse);
- deck.addEventListener('pointerleave',()=>{if(tour)return;peekTimer=setTimeout(()=>{if(!preview.matches(':hover')&&!deck.matches(':hover'))hidePeek();},160);queueCollapse();});
- preview.addEventListener('pointerenter',()=>{clearCollapse();clearTimeout(peekTimer);});
- preview.addEventListener('pointerleave',()=>{if(tour)return;peekTimer=setTimeout(hidePeek,160);queueCollapse();});
- preview.addEventListener('click',()=>{touch();openNote(hovered);});
- let lastTouch=-1;
- tabs.forEach((tab,i)=>{
-  tab.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){touch();showPeek(i);}});
-  tab.addEventListener('focus',()=>{if(!auto.running&&!tour)showPeek(i);});
-  tab.addEventListener('pointerdown',e=>{if(e.button!==0)return;if(e.pointerType==='mouse'){e.preventDefault();touch();openNote(i);}});
-  tab.addEventListener('click',e=>{if(e.detail===0){touch();openNote(i);return;}if(e.pointerType==='touch'||e.pointerType==='pen'){touch();if(lastTouch===i){openNote(i);lastTouch=-1;}else{showPeek(i);lastTouch=i;}}});
- });
- $('#try-keepnote').addEventListener('click',()=>{touch();stage.scrollIntoView({behavior:reduce.matches?'instant':'smooth',block:'center'});showDeck();tabs[0].focus({preventScroll:true});});
- $('.note-close').addEventListener('click',()=>closeNote(true));
- text.addEventListener('input',()=>{if(opened!==-1){notes[opened].edits??={};notes[opened].edits[lang()]=text.value;}});
- $$('.note-color').forEach((b,c)=>b.addEventListener('click',()=>{if(opened!==-1){notes[opened].color=c;colorize(note,c);colorize(tabs[opened],c);$$('.note-color').forEach((el,j)=>el.setAttribute('aria-pressed',String(j===c)));}}));
- document.addEventListener('pointerdown',e=>{if(opened!==-1&&!note.contains(e.target)&&!deck.contains(e.target)&&!preview.contains(e.target))closeNote(false);});
- document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(opened!==-1){e.preventDefault();closeNote(true);}else if(expanded&&!tour){e.preventDefault();hideDeck(true);}});
- stage.addEventListener('focusout',()=>setTimeout(()=>{if(!stage.contains(document.activeElement)&&opened===-1)queueCollapse();},0));
- new ResizeObserver(()=>{layout();if(opened!==-1)snap(note,noteRect(opened));else if(hovered!==-1&&expanded)move(preview,previewRect(hovered),'peek');tabs.forEach((t,i)=>{if(!pending.has(t))t.style.left=(expanded?tabLeft(i):DECK_W)+'px';});}).observe(stage);
- tabs.forEach(t=>{t.style.left=DECK_W+'px';t.style.width=TAB_W+'px';t.style.opacity=0;});
- layout();
- new IntersectionObserver(([en])=>{
-  stage.classList.toggle('in-view',en.isIntersecting);
-  if(en.isIntersecting&&(!pinned.matches||!finePointer.matches))startAuto();
-  else if(!en.isIntersecting&&auto.running){stopAuto();if(opened!==-1)closeNote(false,true);hideDeck();}
- },{threshold:.45}).observe(stage);
+ $('.kn-close',note).addEventListener('click',e=>{e.stopPropagation();closeNote();});
+ text.addEventListener('input',()=>{if(opened!==-1&&!auto.on){const n=NOTES[opened];n.edit??={};n.edit[lang()]=text.value;}});
+ tabs.forEach((t,i)=>{t.addEventListener('focus',()=>{if(auto.on&&!t.matches(':focus-visible'))return;takeOver();openDeck();hoverTab(i);});t.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openNote(i,{focus:true});}});});
+ stripe.addEventListener('focus',()=>{if(!stripe.matches(':focus-visible'))return;takeOver();openDeck();});
+ stage.addEventListener('focusout',()=>setTimeout(()=>{if(!stage.contains(document.activeElement)&&!auto.on)releaseLater();},0));
+ document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(opened!==-1){e.preventDefault();const i=opened;closeNote();if(!auto.on)tabs[i].focus({preventScroll:true});}else if(expanded&&!auto.on){inDeck=false;closeDeck();}});
+ $('#try-keepnote').addEventListener('click',()=>{stage.scrollIntoView({behavior:reduce.matches?'instant':'smooth',block:'center'});takeOver();openDeck();setTimeout(()=>{hoverTab(0);tabs[0].focus({preventScroll:true});},300);releaseLater();});
  section.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||still()||!pinned.matches)return;section.style.setProperty('--mx',(e.clientX/innerWidth*2-1).toFixed(3));section.style.setProperty('--my',(e.clientY/innerHeight*2-1).toFixed(3));});
  section.addEventListener('pointerleave',()=>{section.style.setProperty('--mx',0);section.style.setProperty('--my',0);});
+
+ // Background: paper notes falling forever, each with something small and silly on it.
+ const FUN=[
+  [['reminder','drink water'],['lembrete','beber água']],[['app idea','an app for app ideas'],['ideia de app','um app de ideias de app']],
+  [['wifi password','it is on the other note'],['senha do wifi','está no outro post-it']],[['TODO','write more TODOs'],['TODO','escrever mais TODOs']],
+  [['git push --force?','no. never. maybe.'],['git push --force?','não. nunca. talvez.']],[['meeting','could have been an email'],['reunião','podia ser um e-mail']],
+  [['works on my machine','ship the machine?'],['na minha máquina funciona','mandar a máquina?']],[['backup','of the backup'],['backup','do backup']],
+  [['call mom','seriously'],['ligar pra mãe','sério']],[['sleep 8h','lol'],['dormir 8h','kkkk']],
+  [['99 bugs in the code','fix one: 127 bugs'],['99 bugs no código','corrige um: 127 bugs']],[['coffee','urgent'],['café','urgente']],
+  [['remember','to forget this note'],['lembrar','de esquecer esta nota']],[['Esc','tucks everything away'],['Esc','guarda tudo de volta']],
+  [['⌥⌘P','set a note free'],['⌥⌘P','solta a nota da borda']],[['- [x] ship v1.0','- [ ] rest'],['- [x] lançar v1.0','- [ ] descansar']],
+  [['password123','kidding. Keychain.'],['senha123','brincadeira. Keychain.']],[['RAG eval','recall@5 before vibes'],['avaliação RAG','recall@5 antes do achismo']],
+  [['Monday','again?'],['segunda-feira','de novo?']],[['note','this note is a note'],['nota','esta nota é uma nota']]
+ ];
+ const field=$('.keep-float',section);field.innerHTML='';
+ const r=(a,b)=>a+Math.random()*(b-a);
+ FUN.forEach(([en,pt],i)=>{
+  const z=r(.35,1.7),far=z<.7,near=z>1.3,x=i/FUN.length*104-4+r(-3,3),dim=x<38?.5:1,el=document.createElement('div');el.className='fall';
+  const dur=near?r(13,17):far?r(30,40):r(19,26);
+  el.style.cssText=`--x:${x.toFixed(1)}%;--w:${Math.round(105+z*75)}px;--o:${((far?.32:near?.5:.72)*dim).toFixed(2)};--b:${far?2.2:near?6:0}px;--t:${dur.toFixed(1)}s;--d:${(-r(0,dur)).toFixed(1)}s;--r0:${r(-14,14).toFixed(0)}deg;--r1:${r(-30,30).toFixed(0)}deg;--dx:${r(-60,60).toFixed(0)}px;z-index:${near?3:far?0:1}`;
+  el.innerHTML=`<div class="fnote-in" style="--c:${PAL[i%5][0]};--d:${(-r(0,6)).toFixed(1)}s"><b><span class="lang-en">${en[0]}</span><span class="lang-pt">${pt[0]}</span></b><span class="lang-en">${en[1]}</span><span class="lang-pt">${pt[1]}</span></div>`;
+  field.appendChild(el);
+ });
+
+ new ResizeObserver(layout).observe(stage);
+ layout();
+ new IntersectionObserver(([en])=>{visible=en.isIntersecting;stage.classList.toggle('in-view',visible);if(visible)startAuto();else{haltAuto();}},{threshold:.35}).observe(stage);
  const clock=$('.mac-clock');
  function tickClock(){const d=new Date();clock.textContent=d.toLocaleString(lang()==='pt'?'pt-BR':'en-US',{weekday:'short',hour:'2-digit',minute:'2-digit'});}
  tickClock();setInterval(tickClock,30000);
- reduce.addEventListener('change',()=>{if(reduce.matches){pending.forEach((a,el)=>setGeometry(el,a.target));pending.clear();cancelAnimationFrame(raf);raf=0;}});
- function relang(){
-  tickClock();
-  if(opened!==-1){const d=notes[opened];$('#note-heading').textContent=d.title[lang()];text.value=(d.edits&&d.edits[lang()])??d.body[lang()];}
-  if(hovered!==-1&&opened===-1&&expanded)showPeek(hovered);
- }
- return {state,relang,stopAuto,startAuto:()=>{if(stage.classList.contains('in-view')&&(!pinned.matches||!finePointer.matches))startAuto();}};
+ function relang(){tickClock();if(opened!==-1)fillNote(opened);if(peekShown)fillPeek(peekIdx);}
+ return {state,relang,stopAuto:haltAuto,startAuto};
 })();
 
-/* Espectro 24: a trailer in scroll. Title cards, then each film: the review on a card, the shot, its classification. */
+/* Espectro 24: a trailer on a loop. Title cards, then each film: the review on a card, the shot, its classification. */
 function film(){}
 (()=>{
  const sec=$('#espectro'), rig=$('#film-rig'), tc=$('.film-tc'), ratio=$('.film-ratio');
@@ -1099,32 +1131,31 @@ function film(){}
   mark.style.left=toX(FILMS[i].mark)+'%';mark.classList.toggle('edge',FILMS[i].mark>=4.5);nEl.textContent='n = '+FILMS[i].n;
  }
  function setCard(c){if(c===card)return;card=c;sec.dataset.card=c;sec.classList.toggle('analyzed',c==='none');}
- const SEG=.293;
- hooks.espectro=p=>{
-  sec.style.setProperty('--e',ease(clamp(p/.08)).toFixed(4));
-  if(!pinned.matches)return;
-  if(p<.12){setShot(0);setCard('intro');sec.dataset.intro=String(Math.min(3,1+Math.floor(p/.035)));return;}
-  const seg=Math.min(2,Math.floor((p-.12)/SEG)),t=(p-.12-seg*SEG)/SEG;
-  setShot(seg);setCard(t<.3?'quote':'none');
- };
- film.segment=()=>{const p=sceneP.espectro??0;return p<.12?-1:Math.min(2,Math.floor((p-.12)/SEG));};
+ // The trailer plays on its own: title cards, then each film's review card, shot and classification.
+ let seg=-1,introStep=0;
+ film.segment=()=>seg;
+ function playNext(){
+  clearTimeout(cycleT);if(!visible)return;
+  const wait=ms=>{cycleT=setTimeout(playNext,still()?Math.max(ms,6000):ms);};
+  if(seg===-1&&introStep<3){if(!introStep){setShot(0);setCard('intro');}introStep++;sec.dataset.intro=String(introStep);updateCue();wait(introStep<3?1300:2200);return;}
+  if(seg===-1||card==='none'){seg=seg===-1?0:seg+1;if(seg>2){seg=-1;introStep=0;playNext();return;}setShot(seg);setCard('quote');updateCue();wait(2400);return;}
+  setCard('none');wait(6200);
+ }
  rig.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||still())return;const r=rig.getBoundingClientRect();rig.style.setProperty('--tx',((e.clientX-r.left)/r.width*2-1).toFixed(3));rig.style.setProperty('--ty',((e.clientY-r.top)/r.height*2-1).toFixed(3));});
  rig.addEventListener('pointerleave',()=>{rig.style.setProperty('--tx',0);rig.style.setProperty('--ty',0);});
  const pad=n=>String(n).padStart(2,'0');
  setInterval(()=>{if(!visible||still())return;frames++;const f=frames%24,s=Math.floor(frames/24);tc.textContent=`${pad(Math.floor(s/3600))}:${pad(Math.floor(s/60)%60)}:${pad(s%60)}:${pad(f)}`;},1000/24);
- // Small screens: the trailer plays on its own, card then shot.
- function autoplay(){clearTimeout(cycleT);if(!visible||pinned.matches)return;const next=(shot+1)%3;setShot(next);setCard('quote');cycleT=setTimeout(()=>{setCard('none');cycleT=setTimeout(autoplay,still()?7000:5200);},2000);}
- new IntersectionObserver(([en])=>{visible=en.isIntersecting;if(visible&&!pinned.matches&&!cycleT)autoplay();if(!visible){clearTimeout(cycleT);cycleT=0;}},{threshold:.2}).observe(sec);
+ new IntersectionObserver(([en])=>{visible=en.isIntersecting;if(visible&&!cycleT)playNext();if(!visible){clearTimeout(cycleT);cycleT=0;}},{threshold:.2}).observe(sec);
  const NS='http://www.w3.org/2000/svg';
  const grass=$('.grass',sec);let d='';
  for(let x=-60;x<1260;x+=rnd(3,7)){const h=rnd(18,58),lean=rnd(-9,9);d+=`M${x.toFixed(1)} 422 L${(x+lean).toFixed(1)} ${(422-h).toFixed(1)} L${(x+2.6).toFixed(1)} 422 Z `;}
  const gp=document.createElementNS(NS,'path');gp.setAttribute('d',d);grass.appendChild(gp);
  const stars=$('.stars',sec);for(let i=0;i<46;i++){const c=document.createElementNS(NS,'circle');c.setAttribute('cx',rnd(0,1200).toFixed(0));c.setAttribute('cy',rnd(0,250).toFixed(0));c.setAttribute('r',rnd(.6,1.6).toFixed(1));c.setAttribute('opacity',rnd(.25,.9).toFixed(2));stars.appendChild(c);}
  const city=$('.citylights',sec);for(let x=240;x<960;x+=rnd(6,18)){const r=document.createElementNS(NS,'rect');r.setAttribute('x',x.toFixed(0));r.setAttribute('y',(286-rnd(0,5)).toFixed(0));r.setAttribute('width','2.4');r.setAttribute('height','2');r.setAttribute('fill',Math.random()<.3?'#ff9ac6':'#ffd59a');r.setAttribute('opacity',rnd(.4,1).toFixed(2));city.appendChild(r);}
- setShot(0);if(!pinned.matches)setCard('none');
+ setShot(0);
 })();
 
-/* quantlab: a simulated trading terminal drawn on one canvas. Scroll runs a whole session:
+/* quantlab: a simulated trading terminal drawn on one canvas. A 44-second loop runs a whole session:
    opening bell, rally, sell-off, circuit breaker, recovery, close. */
 const market=(()=>{
  const sec=$('#quant'), cv=$('#market-canvas'), ctx=cv.getContext('2d');
@@ -1228,9 +1259,12 @@ const market=(()=>{
   dpr=Math.min(2,devicePixelRatio||1);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
   ctx.setTransform(dpr,0,0,dpr,0,0);layout();draw();
  }
- let tTick=0,tCandle=0,tTrade=0,tLog=0,tIdx=0;
+ let tTick=0,tCandle=0,tTrade=0,tLog=0,tIdx=0,sessionT=0;
+ const SESSION=44;
  function step(dt){
   clockSec+=dt;termStep(dt);
+  sessionT+=dt;if(sessionT>=SESSION){sessionT=0;base=price;equity.length=0;equity.push({b:1,s:1});markers.length=0;}
+  prog=sessionT/SESSION;{const ph=phaseAt(prog);if(ph!==phase){enterPhase(ph);updateCue();}}
   const frozen=phase.id==='halt'||phase.id==='close';
   const rate=phase.id==='shock'?2.4:1+prog;
   if(!frozen){tTick+=dt*rate;tCandle+=dt*rate;tTrade+=dt*rate;tIdx+=dt*rate;}
@@ -1423,11 +1457,10 @@ const market=(()=>{
   if(e.target.closest&&e.target.closest('input,textarea,[contenteditable]'))return;
   boost();
  });
- hooks.quant=p=>{prog=p;sec.style.setProperty('--e',ease(clamp(p/.1)).toFixed(4));const ph=phaseAt(p);if(ph!==phase)enterPhase(ph);};
  return {kick,phase:()=>phase.id,keyed:()=>term.keyed};
 })();
 
-/* NFL Sideline: a broadcast replay you scrub with the scroll. Pseudo-3D sideline camera, pixel players,
+/* NFL Sideline: a broadcast replay on a loop. Pseudo-3D sideline camera, pixel players,
    a telestrator before the snap, and the play landing in the data panel when it ends. */
 const nfl=(()=>{
  const sec=$('#nfl'), cv=$('#nfl-canvas'), ctx=cv.getContext('2d'), stage=$('.nfl-stage'), tcEl=$('.nfl-replay span');
@@ -1573,7 +1606,7 @@ const nfl=(()=>{
  // Who drives the clock: the scroll (desktop), a replay button, or a loop (small screens).
  let playT=0,replay=false,visible=false,raf=0,last=0,acc=0;
  const scrollTime=p=>p<PRE?p/PRE*(S-.05):p<END?S+(p-PRE)/(END-PRE)*(T_END-S):T_END;
- const routeFor=(p,t)=>pinned.matches&&!replay?(p<PRE?clamp(p/PRE*1.15):t<S+.4?1:0):(t<S?clamp(t/S*1.2):0);
+ const routeFor=(p,t)=>t<S?clamp(t/S*1.25):t<S+.4?1:0;
  const wpLine=$('.wp-line',sec), wpDot=$('.wp-dot',sec), wpVal=$('.wp-val',sec);
  const WP=(()=>{const r=rng(42);let v=50;const pts=[];for(let i=0;i<60;i++){v=clamp(v+(r()-.5)*9,12,88);pts.push(v);}const d=54-pts[59];return pts.map((v,i)=>v+d*i/59);})();
  const X=i=>i/60*300,Yv=v=>90-v*.9;
@@ -1581,7 +1614,7 @@ const nfl=(()=>{
  $('.wp-jump',sec).setAttribute('d',`M${X(59)},${Yv(54)} L${X(60)},${Yv(71)}`);
  const wpLen=wpLine.getTotalLength();wpLine.style.strokeDasharray=wpLen;
  function updatePanel(t){
-  const k=pinned.matches&&!replay?clamp((sceneP.nfl??0)/END):clamp(t/T_END);
+  const k=clamp(t/T_END);
   wpLine.style.strokeDashoffset=(wpLen*(1-k)).toFixed(1);
   const i=Math.min(59,Math.floor(k*59)),done=t>=HIT+1;
   wpDot.style.left=(done?X(60):X(i))/3+'%';wpDot.style.top=(done?Yv(71):Yv(WP[i]))/.9+'%';
@@ -1589,23 +1622,20 @@ const nfl=(()=>{
   if(sec.dataset.result!==String(done))sec.dataset.result=String(done);
   const s=Math.max(0,t);tcEl.textContent=`0:${String(Math.floor(s)).padStart(2,'0')}.${String(Math.floor(s*100)%100).padStart(2,'0')}`;
  }
- function frame(t){render(t,routeFor(sceneP.nfl??0,t));blit(t);updatePanel(t);}
+ function frame(t){render(t,routeFor(0,t));blit(t);updatePanel(t);}
  function loop(now){
   raf=0;if(!visible)return;
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(!still())rt+=dt;
-  if(replay){playT+=dt;if(playT>T_END+.8){replay=false;sec.classList.remove('replaying');}}
-  else if(pinned.matches)playT=scrollTime(sceneP.nfl??0);
-  else if(!still()){playT+=dt;if(playT>LOOP)playT=0;}
+  if(!still()){playT+=dt;if(playT>T_END+2.4)playT=0;}
   acc+=dt;if(acc>=1/30||still()){acc=0;frame(playT);}
-  if(still()&&!replay)return;
+  if(still())return;
   raf=requestAnimationFrame(loop);
  }
  function kick(){if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(loop);}}
- $('#play-nfl').addEventListener('click',()=>{replay=true;playT=0;sec.classList.add('replaying');kick();});
+ $('#play-nfl').addEventListener('click',()=>{playT=0;kick();});
  new IntersectionObserver(([en])=>{visible=en.isIntersecting;kick();},{threshold:.1}).observe(stage);
  new ResizeObserver(()=>{frame(playT);}).observe(cv);
- hooks.nfl=()=>{if(still())kick();};
  stage.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||still())return;const r=stage.getBoundingClientRect();stage.style.setProperty('--tilt',(((e.clientY-r.top)/r.height-.5)*-6).toFixed(2));});
  stage.addEventListener('pointerleave',()=>stage.style.setProperty('--tilt',0));
  return {kick};
