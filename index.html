@@ -373,35 +373,87 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
 .nfl-bug span:last-child{background:var(--amber);color:#1b1a14}
 .nfl-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px}
 .nfl-controls small{font-size:12px;color:var(--haze)}
-.compact-stage{position:relative;height:300px}
-.tv-stage{background:#b09eea;color:#242032;padding:20px;transform:rotate(1deg);border-radius:28px;box-shadow:inset 0 0 0 5px #2c253c,0 30px 50px -20px #000b;height:260px}
-.tv-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;font-size:12px}
-.tv-logo{font:600 30px/.9 var(--display);letter-spacing:-1px}
-.tv-screen{height:150px;border-radius:10px;background:#242032;overflow:hidden;position:relative}
-.tv-art{position:absolute;inset:0;background:repeating-conic-gradient(#f7e3a1 0% 25%,#ef806a 0% 50%) 50%/48px 48px;display:flex;justify-content:center;align-items:center}
-.tv-art[data-channel='1']{background:repeating-linear-gradient(135deg,#86bceb 0 30px,#494e94 30px 60px)}
-.tv-art[data-channel='2']{background:radial-gradient(ellipse,#d8cdf2 30%,#ee9279 31%,#ee9279 45%,#bfe5cc 46%)}
-.cartoon-title{font:600 clamp(28px,2.6vw,46px)/.9 var(--display);text-align:center;background:#242032;color:#f0f2ed;padding:12px 18px;transform:rotate(-5deg);box-shadow:6px 6px 0 #f0f2ed;max-width:90%}
-.tv-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,#0002 3px 4px)}
-.tv-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px}
-.tv-bottom span{font-size:11px}
-.tv-switch{border:0;background:#242032;color:#fff;border-radius:6px;min-height:36px;padding:5px 12px;font-size:11px}
-.small-visual{height:300px;position:relative;display:flex;align-items:center;justify-content:center;gap:16px;border-radius:8px}
-.cup-visual{background:radial-gradient(80% 80% at 50% 0%,#33505a,#1f3640);overflow:hidden;box-shadow:0 30px 50px -24px #000b}
-.cup-team{font:600 72px/1 var(--display);letter-spacing:-2px;z-index:1}
-.cup-vs{font-size:13px;color:var(--haze)}
-.probability-bands{position:absolute;bottom:0;height:8px;width:100%;display:flex}
-.probability-bands i:nth-child(1){background:#e6c85b;width:48%}
-.probability-bands i:nth-child(2){background:#9aa1ac;width:27%}
-.probability-bands i:nth-child(3){background:#86bceb;width:25%}
-.cup-badge{position:absolute;top:14px;left:16px;font-size:11px;color:var(--haze)}
-.cup-probs{position:absolute;bottom:20px;left:16px;right:16px;display:flex;justify-content:space-between;font-size:12px;color:#d0dbe1}
-.document-visual{background:radial-gradient(80% 80% at 50% 0%,#334563,#222f44);overflow:hidden;gap:26px;box-shadow:0 30px 50px -24px #000b}
-.paper-document{width:120px;height:150px;background:#f0f2ed;transform:rotate(-7deg);padding:20px 15px;box-shadow:0 14px 28px #0005}
-.paper-document span{display:block;height:3px;background:#b0bec6;margin:7px 0}
-.paper-document span:nth-child(3){background:#e6c85b;height:12px}
-.document-output{max-width:170px;font-size:12px;color:#d8cdf2}
-.document-output strong{display:block;font:500 36px/1 var(--display);color:#f0f2ed;margin-bottom:8px}
+.mini-stage{position:relative;height:300px;border-radius:12px;overflow:hidden;box-shadow:0 40px 60px -30px #000d,0 0 0 1px #ffffff12;transform:perspective(1100px) rotateX(calc(var(--ty,0) * -5deg)) rotateY(calc(var(--tx,0) * 6deg));transition:transform .5s var(--ease)}
+.mini-stage:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
+.mini-hint{position:absolute;left:14px;right:14px;bottom:10px;font-size:11px;color:#ffffff99}
+/* Toon In */
+.toon-stage{--glow:#ef806a;background:radial-gradient(70% 70% at 40% 38%,color-mix(in srgb,var(--glow) 45%,transparent),transparent 70%),linear-gradient(#2a2238,#18141f);transition:transform .5s var(--ease),background .6s}
+.toon-stage[data-channel="1"]{--glow:#86bceb}.toon-stage[data-channel="2"]{--glow:#bfe5cc}
+.crt{position:absolute;left:7%;top:18px;right:7%;height:168px;display:flex;gap:10px;padding:12px;border-radius:22px;background:linear-gradient(160deg,#c9b98f,#9c8b62);box-shadow:inset 0 2px 0 #ffffff55,inset 0 -6px 12px #0004,0 18px 30px -10px #000c}
+.crt-screen{position:relative;flex:1;border-radius:26px/22px;overflow:hidden;background:#111;box-shadow:inset 0 0 0 4px #2a2418,inset 0 0 30px #000}
+.tv-art{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;background:repeating-conic-gradient(#f7e3a1 0% 25%,#ef806a 0% 50%) 0 0/44px 44px;animation:pan 8s linear infinite}
+.toon-stage[data-channel="1"] .tv-art{background:repeating-linear-gradient(135deg,#86bceb 0 26px,#494e94 26px 52px);background-size:auto}
+.toon-stage[data-channel="2"] .tv-art{background:radial-gradient(circle at 50% 50%,#d8cdf2 0 22%,#ee9279 22% 34%,#bfe5cc 34% 46%,#f7e3a1 46% 58%,#86bceb 58%)}
+@keyframes pan{to{background-position:88px 44px}}
+.cartoon-title{font:700 clamp(20px,1.9vw,30px)/.92 var(--display);text-align:center;background:#242032;color:#f0f2ed;padding:9px 14px;transform:rotate(-5deg);box-shadow:5px 5px 0 #f0f2ed;max-width:88%;animation:wobble 2.6s ease-in-out infinite}
+@keyframes wobble{50%{transform:rotate(-3deg) scale(1.04)}}
+.crt-static{position:absolute;inset:-50%;background-image:var(--noise);background-size:120px;opacity:0;filter:contrast(2.2) brightness(1.4);animation:grain .25s steps(3) infinite;pointer-events:none}
+.toon-stage.switching .crt-static{opacity:.95}
+.toon-stage.switching .tv-art{animation:roll .38s steps(4)}
+@keyframes roll{0%{transform:translateY(-30%)}100%{transform:translateY(0)}}
+.crt-scan{position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 2px,#0003 2px 3px);pointer-events:none}
+.crt-glass{position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 15%,#ffffff40,transparent 40%),radial-gradient(ellipse at center,transparent 55%,#000a);pointer-events:none}
+.crt-osd{position:absolute;right:14px;top:10px;font:600 15px/1 var(--mono);color:#7dff8a;text-shadow:0 0 6px #7dff8a;opacity:0;transition:opacity .3s}
+.toon-stage.osd .crt-osd{opacity:1}
+.crt-side{width:46px;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:8px}
+.crt-knob{width:36px;height:36px;border-radius:50%;border:0;padding:0;background:radial-gradient(circle at 35% 30%,#5a5040,#2a241a);box-shadow:0 3px 6px #0007,inset 0 1px 0 #ffffff30;transform:rotate(var(--knob,0deg));transition:transform .35s var(--ease)}
+.crt-knob i{display:block;width:4px;height:13px;margin:4px auto 0;border-radius:2px;background:#e9dcc0}
+.crt-grille{width:30px;flex:1;margin-bottom:6px;background:repeating-linear-gradient(#3a3224 0 3px,transparent 3px 6px);border-radius:4px;opacity:.7}
+.guide{position:absolute;left:7%;right:7%;top:198px;display:flex;flex-direction:column;gap:5px}
+.guide-row{display:grid;grid-template-columns:56px 44px 1fr 70px;align-items:center;gap:8px;font-size:12px;color:#e9e3f5}
+.g-tag{font:600 11px/1 var(--display);letter-spacing:.06em;color:#bfb2dd}
+.guide-row.now .g-tag{color:var(--glow)}
+.g-time{font-variant-numeric:tabular-nums;color:#bfb2dd}
+.g-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.g-bar{height:4px;border-radius:2px;background:#ffffff1f;overflow:hidden}
+.g-bar i{display:block;height:100%;width:calc(var(--k,0) * 100%);background:var(--glow)}
+.guide-row.next{opacity:.6}
+/* World Cup */
+.cup-stage{display:flex;flex-direction:column;padding:12px 16px 12px;background:radial-gradient(90% 70% at 50% 0%,#2f5a4a,#173328 70%);color:#eef4ef}
+.cup-head{display:flex;justify-content:space-between;font-size:11px;color:#bcd2c6}
+.cup-clock{font:600 14px/1 var(--display);color:#fff;font-variant-numeric:tabular-nums}
+.cup-score{display:flex;align-items:center;justify-content:center;gap:18px;margin:2px 0 4px}
+.cup-team{font:700 30px/1 var(--display);letter-spacing:-.5px}
+.cup-score b{display:flex;gap:6px;font:700 34px/1 var(--display);font-variant-numeric:tabular-nums}
+.cup-score b i{font-style:normal;opacity:.5}
+.cup-score b span{display:inline-block}
+.cup-score b span.bump{animation:bump .6s var(--ease)}
+@keyframes bump{30%{transform:scale(1.6);color:var(--amber)}}
+.pitch{position:relative;flex:1;min-height:0;border-radius:6px;background:repeating-linear-gradient(90deg,#2f7a4b 0 30px,#2b7146 30px 60px);box-shadow:inset 0 0 30px #0005}
+.pitch svg{display:block;width:100%;height:100%}
+.goal-pop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);font:700 34px/1 var(--display);letter-spacing:.06em;color:var(--amber);text-shadow:0 3px 0 #0007;opacity:0;pointer-events:none}
+.cup-stage.goal .goal-pop{animation:goalpop 1.2s var(--ease)}
+@keyframes goalpop{20%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+.cup-bars{display:flex;height:7px;margin-top:9px;border-radius:4px;overflow:hidden}
+.cup-bars i{display:block;transition:width .8s var(--ease)}
+.b-h{background:#e6c85b;width:48%}.b-d{background:#9aa1ac;width:27%}.b-a{background:#86bceb;width:25%}
+.cup-probs{display:flex;justify-content:space-between;margin-top:5px;font-size:12px;color:#d6e4dc}
+.cup-probs b{font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+.cup-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:7px;font-size:11px;color:#bcd2c6}
+.cup-run{border:1px solid #ffffff40;background:transparent;color:#fff;border-radius:14px;padding:4px 11px;font-size:11px}
+.cup-run:hover{background:#ffffff1a}
+/* TRIL */
+.doc-stage{display:flex;gap:4%;padding:18px 16px 34px;background:radial-gradient(80% 80% at 30% 0%,#334563,#1d283a)}
+.doc-paper{position:relative;width:46%;padding:12px 12px;background:#f3f1ea;color:#2a2a2a;transform:rotate(-3deg);box-shadow:0 18px 30px -8px #000b;overflow:hidden;font-size:9px;line-height:1.3}
+.doc-paper p{margin:0}
+.doc-org{font-size:8px;color:#666}
+.doc-h{font:700 11px/1.2 var(--sans);margin:2px 0 6px!important}
+.doc-paper i{display:block;height:3px;margin:5px 0;background:#cfd3d6;border-radius:2px}
+.doc-paper i:nth-of-type(3n){width:80%}
+.doc-f{position:relative;margin:4px 0!important;padding:1px 2px;font-size:9px}
+.doc-f:after{content:'';position:absolute;inset:-1px -2px;border:1.5px solid #ef806a;border-radius:2px;background:#ef806a1f;opacity:0;transform:scale(1.08);transition:opacity .25s,transform .3s}
+.doc-f.hit:after{opacity:1;transform:none}
+.doc-laser{position:absolute;left:-10%;right:-10%;top:var(--y,0%);height:2px;background:#ff4f61;box-shadow:0 0 10px 2px #ff4f61aa,0 -14px 22px #ff4f6130;opacity:var(--lo,0)}
+.doc-out{flex:1;display:flex;flex-direction:column;min-width:0}
+.doc-out-h{margin:0 0 6px;font:500 11px/1 var(--mono);color:#a9bad3}
+.doc-json{flex:1;margin:0;padding:10px;border-radius:6px;background:#0d1522;box-shadow:inset 0 0 0 1px #ffffff14;font:400 10.5px/1.6 var(--mono);color:#d8e2f0;white-space:pre-wrap;overflow:hidden}
+.doc-json .k{color:#86bceb}.doc-json .v{color:#f7e3a1}
+.doc-json .row{display:block;opacity:0;transform:translateX(-10px);transition:opacity .35s,transform .45s var(--ease)}
+.doc-json .row.in{opacity:1;transform:none}
+.doc-lanes{display:grid;gap:4px;margin-top:8px}
+.doc-lanes span{font-size:10.5px;color:#a9bad3}
+.doc-lanes i{display:block;height:4px;border-radius:2px;background:#ffffff14;position:relative;overflow:hidden}
+.doc-lanes i:after{content:'';position:absolute;inset:0;background:#86cda1;transform-origin:0 50%;transform:scaleX(var(--f,0))}
 
 /* About, experience, contact */
 .about-section,.experience-section{padding:110px var(--pad);display:grid;grid-template-columns:1fr 1.6fr;gap:9vw;border-top:1px solid var(--line)}
@@ -636,19 +688,35 @@ html[data-motion=paused] *,html[data-motion=paused] *:before,html[data-motion=pa
  </div>
 </div></section>
 <div class="secondary-projects" data-scene="more" data-mode="flow">
-<section class="compact-project" id="toon" aria-labelledby="title-toon"><div class="compact-stage"><div class="tv-stage"><div class="tv-top"><span class="tv-logo">Toon In</span><span><span class="lang-en">Your new-tab TV</span><span class="lang-pt">Sua TV na nova aba</span></span></div><div class="tv-screen"><div class="tv-art" data-channel="0"><div class="cartoon-title"><span class="lang-en">Dexter’s<br>Laboratory</span><span class="lang-pt">O Laboratório<br>de Dexter</span></div></div><div class="tv-scan"></div></div><div class="tv-bottom"><span id="tv-time">16:00 / 16:30</span><button type="button" class="tv-switch" id="next-channel"><span class="lang-en">Next show</span><span class="lang-pt">Próximo desenho</span></button></div></div><p class="demo-caption" style="position:absolute;bottom:0"><span class="lang-en">Illustrative schedule, original graphic composition</span><span class="lang-pt">Programação ilustrativa, composição gráfica original</span></p></div><div class="project-copy">
+<section class="compact-project" id="toon" aria-labelledby="title-toon"><div class="mini-stage toon-stage" data-tilt data-channel="0" tabindex="0" role="group" aria-label="Toon In demo: use the knob or the arrow keys to change channel" data-en-label="Toon In demo: use the knob or the arrow keys to change channel" data-pt-label="Demonstração do Toon In: use o botão ou as setas para trocar de canal">
+ <div class="crt"><div class="crt-screen" aria-live="polite"><div class="tv-art"><div class="cartoon-title"></div></div><div class="crt-static"></div><div class="crt-scan"></div><div class="crt-glass"></div><span class="crt-osd">CH 01</span></div>
+  <div class="crt-side"><button type="button" class="crt-knob" id="next-channel" aria-label="Next channel" data-en-label="Next channel" data-pt-label="Próximo canal"><i></i></button><div class="crt-grille"></div></div></div>
+ <div class="guide"><div class="guide-row now"><span class="g-tag"><span class="lang-en">Now</span><span class="lang-pt">Agora</span></span><span class="g-time"></span><span class="g-title"></span><span class="g-bar"><i></i></span></div><div class="guide-row next"><span class="g-tag"><span class="lang-en">Next</span><span class="lang-pt">A seguir</span></span><span class="g-time"></span><span class="g-title"></span></div></div>
+ <small class="mini-hint"><span class="lang-en">← → change channel. The schedule follows your clock.</span><span class="lang-pt">← → trocam de canal. A grade segue o seu relógio.</span></small>
+</div><div class="project-copy">
   <div class="project-head"><h2 id="title-toon" class="project-title">Toon In</h2><div class="project-date">2026</div></div>
   <p class="project-desc lang-en">A Chrome new-tab extension that turns an episode catalog into a TV-style schedule. Built a deterministic scheduling engine driven by catalog, seed and clock, with CSV import and validation, local storage and browser API integration. The React/TypeScript interface includes themes and keyboard navigation. Automated tests cover parsing, scheduling and simulated extension events; responsive QA covered four viewport widths, from 320 to 1440 px.</p>
   <p class="project-desc lang-pt">Extensão de nova aba para Chrome que transforma um catálogo de episódios em uma grade de programação de TV. Desenvolvi um motor determinístico baseado em catálogo, semente e relógio, com importação e validação de CSV, armazenamento local e integração com APIs do navegador. A interface em React/TypeScript inclui temas e navegação por teclado. Testes automatizados cobrem parsing, programação e eventos simulados da extensão; a revisão responsiva abrangeu quatro larguras, de 320 a 1440 px.</p>
   <div class="tag-row"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Manifest V3</span><span class="tag">Vite</span><span class="tag">Chrome APIs</span><span class="tag">node:test</span></div>
  </div></section>
-<section class="compact-project" id="worldcup" aria-labelledby="title-worldcup"><div class="small-visual cup-visual"><span class="cup-badge"><span class="lang-en">Illustrative prediction</span><span class="lang-pt">Previsão ilustrativa</span></span><span class="cup-team">BRA</span><span class="cup-vs">×</span><span class="cup-team">USA</span><div class="cup-probs"><span>BRA 48%</span><span><span class="lang-en">Draw 27%</span><span class="lang-pt">Empate 27%</span></span><span>USA 25%</span></div><div class="probability-bands" aria-hidden="true"><i></i><i></i><i></i></div></div><div class="project-copy">
+<section class="compact-project" id="worldcup" aria-labelledby="title-worldcup"><div class="mini-stage cup-stage" data-tilt>
+ <div class="cup-head"><span><span class="lang-en">Illustrative match</span><span class="lang-pt">Partida ilustrativa</span></span><span class="cup-clock">0'</span></div>
+ <div class="cup-score"><span class="cup-team">BRA</span><b><span class="g-h">0</span><i>–</i><span class="g-a">0</span></b><span class="cup-team">USA</span></div>
+ <div class="pitch"><svg viewBox="0 0 300 110" aria-hidden="true"><rect x="2" y="2" width="296" height="106" rx="3" fill="none" stroke="#ffffff40"/><line x1="150" y1="2" x2="150" y2="108" stroke="#ffffff40"/><circle cx="150" cy="55" r="16" fill="none" stroke="#ffffff40"/><rect x="2" y="32" width="26" height="46" fill="none" stroke="#ffffff40"/><rect x="272" y="32" width="26" height="46" fill="none" stroke="#ffffff40"/><polyline class="cup-trail" fill="none" stroke="#ffffff55" stroke-width="1.2" points=""/><circle class="cup-ball" cx="150" cy="55" r="3.4" fill="#fff"/></svg><b class="goal-pop"><span class="lang-en">GOAL</span><span class="lang-pt">GOL</span></b></div>
+ <div class="cup-bars" aria-hidden="true"><i class="b-h"></i><i class="b-d"></i><i class="b-a"></i></div>
+ <div class="cup-probs"><span>BRA <b class="p-h">48%</b></span><span><span class="lang-en">Draw</span><span class="lang-pt">Empate</span> <b class="p-d">27%</b></span><span>USA <b class="p-a">25%</b></span></div>
+ <div class="cup-foot"><span class="cup-eval"><span class="lang-en">Live probabilities, updated every minute</span><span class="lang-pt">Probabilidades ao vivo, atualizadas a cada minuto</span></span><button type="button" class="cup-run"><span class="lang-en">Replay</span><span class="lang-pt">Repetir</span></button></div>
+</div><div class="project-copy">
   <div class="project-head"><h2 id="title-worldcup" class="project-title"><span class="lang-en">World Cup 2026 Predictor</span><span class="lang-pt">Preditor Copa do Mundo 2026</span></h2><div class="project-date">2026</div></div>
   <p class="project-desc lang-en">A live prediction system built to forecast match outcomes and statistics throughout the 2026 FIFA World Cup, generating predictions before kickoff and automatically evaluating its own performance after each match. Comparing two independent data sources uncovered a real bug in yellow card counts, while probability calibration delivered the project's largest improvement in predictive accuracy — the same calibration approach used in risk and credit-scoring models.</p>
   <p class="project-desc lang-pt">Sistema de previsão ao vivo desenvolvido para acompanhar toda a Copa do Mundo de 2026, gerando previsões antes do início de cada partida e avaliando automaticamente o próprio desempenho após os jogos. Durante o projeto, a comparação entre duas fontes independentes revelou um bug real na contagem de cartões, e a calibração de probabilidades foi a melhoria que mais aumentou a precisão do modelo — a mesma abordagem de calibração usada em modelos de risco e scoring de crédito.</p>
   <div class="tag-row"><span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">Poisson Models</span><span class="tag">Probability Calibration</span></div>
  </div></section>
-<section class="compact-project" id="tril" aria-labelledby="title-tril"><div class="small-visual document-visual"><div class="paper-document" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="document-output"><strong>OCR + LLM</strong><span class="lang-en">From documents to structured information.</span><span class="lang-pt">De documentos a informações estruturadas.</span></div></div><div class="project-copy">
+<section class="compact-project" id="tril" aria-labelledby="title-tril"><div class="mini-stage doc-stage" data-tilt>
+ <div class="doc-paper" aria-hidden="true"><p class="doc-org"></p><p class="doc-h">EDITAL Nº 03/2025</p><i></i><i></i><p class="doc-f" data-k="0"></p><i></i><i></i><p class="doc-f" data-k="1"></p><i></i><p class="doc-f" data-k="2"></p><i></i><i></i><p class="doc-f" data-k="3"></p><i></i><i></i><div class="doc-laser"></div></div>
+ <div class="doc-out" aria-hidden="true"><p class="doc-out-h">notice.json</p><pre class="doc-json"></pre><div class="doc-lanes"><span><span class="lang-en">async pipeline ×3</span><span class="lang-pt">pipeline assíncrono ×3</span></span><i></i><i></i><i></i></div></div>
+ <small class="mini-hint"><span class="lang-en">Illustrative notice. OCR reads it, an LLM fills the fields.</span><span class="lang-pt">Edital ilustrativo. O OCR lê, um LLM preenche os campos.</span></small>
+</div><div class="project-copy">
   <div class="project-head"><h2 id="title-tril" class="project-title"><span class="lang-en">Automated Appeal Generator — TRIL LAB</span><span class="lang-pt">Gerador Automático de Recursos — TRIL LAB</span></h2><div class="project-date">2024 — 2025</div></div>
   <p class="project-desc lang-en">An AI system that automates the extraction and analysis of Brazilian public recruitment notices using Python, OCR, and LLMs, reducing manual reading time by more than 70%. The processing pipeline was later redesigned to run asynchronously and in parallel, increasing throughput by roughly three times.</p>
   <p class="project-desc lang-pt">Sistema de IA para automatizar a leitura e análise de editais de concursos públicos utilizando Python, OCR e LLMs, reduzindo em mais de 70% o tempo gasto com leitura manual. O pipeline foi posteriormente redesenhado para processamento paralelo e assíncrono, aumentando o throughput em aproximadamente três vezes.</p>
@@ -1543,12 +1611,103 @@ const nfl=(()=>{
  return {kick};
 })();
 
-/* Toon In channel switcher */
-let channel=0;
-const showTitles=[['Dexter’s<br>Laboratory','O Laboratório<br>de Dexter'],['The Powerpuff<br>Girls','As Meninas<br>Superpoderosas'],['Courage the<br>Cowardly Dog','Coragem, o<br>Cão Covarde']];
-function renderTV(){$('.tv-art').dataset.channel=channel;$('.cartoon-title').innerHTML=showTitles[channel][lang()==='pt'?1:0];$('#tv-time').textContent=['16:00 / 16:30','16:30 / 17:00','17:00 / 17:30'][channel];}
-$('#next-channel').addEventListener('click',()=>{channel=(channel+1)%3;renderTV();});
-$('.tv-screen').setAttribute('aria-live','polite');
+/* Small cards: each visual is a working miniature. */
+$$('[data-tilt]').forEach(el=>{
+ el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||still())return;const r=el.getBoundingClientRect();el.style.setProperty('--tx',((e.clientX-r.left)/r.width*2-1).toFixed(3));el.style.setProperty('--ty',((e.clientY-r.top)/r.height*2-1).toFixed(3));});
+ el.addEventListener('pointerleave',()=>{el.style.setProperty('--tx',0);el.style.setProperty('--ty',0);});
+});
+const onVisible=(el,fn,th=.35)=>new IntersectionObserver(([en])=>fn(en.isIntersecting),{threshold:th}).observe(el);
+
+// Toon In: the schedule is a pure function of channel and clock, like the extension's engine.
+const toon=(()=>{
+ const st=$('.toon-stage'),title=$('.cartoon-title',st),osd=$('.crt-osd',st),knob=$('#next-channel');
+ const shows=[['Dexter’s<br>Laboratory','O Laboratório<br>de Dexter'],['The Powerpuff<br>Girls','As Meninas<br>Superpoderosas'],['Courage the<br>Cowardly Dog','Coragem, o<br>Cão Covarde']];
+ const plain=h=>h.replace('<br>',' ');
+ let ch=0,turns=0,osdT=0,swT=0;
+ const SLOT=30*60*1000;
+ function render(){
+  const now=Date.now(),slot=Math.floor(now/SLOT),k=(now%SLOT)/SLOT,li=lang()==='pt'?1:0;
+  const cur=shows[(slot+ch)%3],nxt=shows[(slot+1+ch)%3];
+  const local=t=>new Date(t).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false});
+  const art=(slot+ch)%3;st.dataset.channel=String(art);title.innerHTML=cur[li];
+  $('.now .g-time',st).textContent=local(slot*SLOT);$('.now .g-title',st).textContent=plain(cur[li]);$('.g-bar',st).style.setProperty('--k',k.toFixed(3));
+  $('.next .g-time',st).textContent=local((slot+1)*SLOT);$('.next .g-title',st).textContent=plain(nxt[li]);
+  osd.textContent='CH '+String(ch+1).padStart(2,'0');
+ }
+ function zap(dir){
+  ch=(ch+dir+3)%3;turns+=dir;knob.style.setProperty('--knob',turns*60+'deg');
+  if(!still()){st.classList.add('switching');clearTimeout(swT);swT=setTimeout(()=>st.classList.remove('switching'),380);}
+  st.classList.add('osd');clearTimeout(osdT);osdT=setTimeout(()=>st.classList.remove('osd'),1600);
+  setTimeout(render,still()?0:180);
+ }
+ knob.addEventListener('click',e=>{e.stopPropagation();zap(1);});
+ st.addEventListener('click',()=>{st.focus({preventScroll:true});zap(1);});
+ st.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowUp'){e.preventDefault();zap(1);}if(e.key==='ArrowLeft'||e.key==='ArrowDown'){e.preventDefault();zap(-1);}});
+ render();setInterval(render,20000);
+ return {render};
+})();
+
+// World Cup: a 90-minute match in nine seconds; the probabilities move with the score and the clock.
+const cup=(()=>{
+ const st=$('.cup-stage'),ball=$('.cup-ball',st),trail=$('.cup-trail',st),clockEl=$('.cup-clock',st),evalEl=$('.cup-eval',st);
+ const GOALS=[{m:23,side:'h'},{m:61,side:'a'},{m:84,side:'h'}],DUR=9;
+ let t=0,raf=0,last=0,visible=false,played=false,score={h:0,a:0},trailPts=[];
+ function probs(m,h,a){
+  const rem=(90-m)/90,lead=h-a;
+  if(lead===0){const d=.27+(1-rem)*.55;return [(1-d)*.66,d,(1-d)*.34];}
+  const w=1-(1-.48)*Math.pow(rem,1.2)*.9,lo=1-w;
+  return lead>0?[w,lo*.62,lo*.38]:[lo*.38,lo*.62,w];
+ }
+ function ballAt(tt){
+  for(const g of GOALS){const gt=g.m/90*DUR;if(tt>gt-.5&&tt<=gt+.15){const k=clamp((tt-gt+.5)/.5),x0=150+100*Math.sin((gt-.5)*1.3)*Math.cos((gt-.5)*.7),y0=55+35*Math.sin((gt-.5)*2.1+1);return [x0+((g.side==='h'?292:8)-x0)*k*k,y0+(55-y0)*k];}}
+  return [150+100*Math.sin(tt*1.3)*Math.cos(tt*.7),55+35*Math.sin(tt*2.1+1)];
+ }
+ function paint(){
+  const m=Math.min(90,Math.floor(t/DUR*90));let h=0,a=0;for(const g of GOALS)if(m>=g.m)g.side==='h'?h++:a++;
+  if(h!==score.h||a!==score.a){const side=h!==score.h?'.g-h':'.g-a';score={h,a};$('.g-h',st).textContent=h;$('.g-a',st).textContent=a;const el=$(side,st);el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');if(!still()){st.classList.remove('goal');void st.offsetWidth;st.classList.add('goal');}}
+  const [ph,pd,pa]=probs(m,h,a),pct=v=>Math.round(v*100)+'%';
+  $('.b-h',st).style.width=pct(ph);$('.b-d',st).style.width=pct(pd);$('.b-a',st).style.width=pct(pa);
+  $('.p-h',st).textContent=pct(ph);$('.p-d',st).textContent=pct(pd);$('.p-a',st).textContent=pct(pa);
+  clockEl.textContent=m>=90?copy('FT','Fim'):m+"'";
+  const [bx,by]=ballAt(t);ball.setAttribute('cx',bx.toFixed(1));ball.setAttribute('cy',by.toFixed(1));
+  trailPts.push(bx.toFixed(1)+','+by.toFixed(1));if(trailPts.length>18)trailPts.shift();trail.setAttribute('points',trailPts.join(' '));
+  evalEl.innerHTML=m>=90?copy('Final 2–1. The prediction is scored and logged for calibration.','Final 2–1. A previsão é pontuada e registrada para calibração.'):copy('Live probabilities, updated every minute','Probabilidades ao vivo, atualizadas a cada minuto');
+ }
+ function loop(now){raf=0;if(!visible)return;const dt=Math.min(.05,(now-last)/1000);last=now;if(!still())t=Math.min(DUR,t+dt);paint();if(t<DUR&&!still())raf=requestAnimationFrame(loop);}
+ function start(){t=still()?DUR:0;score={h:0,a:0};$('.g-h',st).textContent=0;$('.g-a',st).textContent=0;trailPts=[];played=true;last=performance.now();if(!raf)raf=requestAnimationFrame(loop);}
+ $('.cup-run',st).addEventListener('click',start);
+ onVisible(st,v=>{visible=v;if(v&&!played)start();else if(v&&t<DUR&&!raf){last=performance.now();raf=requestAnimationFrame(loop);}});
+ paint();
+ return {paint,kick:()=>{if(visible&&t<DUR&&!raf&&!still()){last=performance.now();raf=requestAnimationFrame(loop);}}};
+})();
+
+// TRIL: a laser reads the notice, the fields land in JSON, three lanes run in parallel.
+const tril=(()=>{
+ const st=$('.doc-stage'),paper=$('.doc-paper',st),laser=$('.doc-laser',st),json=$('.doc-json',st),fields=$$('.doc-f',st),lanes=$$('.doc-lanes i',st);
+ const DOCS=[
+  {org:'Prefeitura Municipal de João Pessoa',f:['Cargo: Analista de Dados','Vagas: 12','Inscrições: 10/03 a 25/03','Taxa: R$ 85,00'],j:[['cargo','"Analista de Dados"'],['vagas','12'],['inscricoes','"2025-03-10/25"'],['taxa','85.00']]},
+  {org:'Tribunal Regional do Trabalho',f:['Cargo: Técnico Judiciário','Vagas: 40','Inscrições: 02/05 a 30/05','Taxa: R$ 70,00'],j:[['cargo','"Técnico Judiciário"'],['vagas','40'],['inscricoes','"2025-05-02/30"'],['taxa','70.00']]},
+  {org:'Universidade Federal da Paraíba',f:['Cargo: Assistente em Administração','Vagas: 8','Inscrições: 15/07 a 05/08','Taxa: R$ 95,00'],j:[['cargo','"Assistente em Administração"'],['vagas','8'],['inscricoes','"2025-07-15/08-05"'],['taxa','95.00']]}
+ ];
+ const CYCLE=7;let t=0,doc=-1,raf=0,last=0,visible=false;
+ function load(i){
+  doc=i;const d=DOCS[i];$('.doc-org',st).textContent=d.org;fields.forEach((f,k)=>{f.textContent=d.f[k];f.classList.remove('hit');});
+  json.innerHTML='{\n'+d.j.map(([k,v],n)=>`<span class="row">  <span class="k">"${k}"</span>: <span class="v">${v}</span>${n<3?',':''}</span>`).join('')+'}';
+ }
+ function paint(){
+  const k=t/CYCLE,scan=clamp(k/.45),pr=paper.getBoundingClientRect();
+  laser.style.setProperty('--y',(scan*100).toFixed(1)+'%');laser.style.setProperty('--lo',k<.47?1:0);
+  const rows=$$('.row',json);
+  fields.forEach((f,n)=>{const pos=(f.offsetTop+f.offsetHeight/2)/paper.clientHeight,hit=scan>=pos;f.classList.toggle('hit',hit);rows[n].classList.toggle('in',hit);});
+  lanes.forEach((l,n)=>l.style.setProperty('--f',clamp((k-.45-n*.03)/.3).toFixed(3)));
+  st.style.opacity=k>.94?String(1-(k-.94)/.06*.6):'';
+ }
+ function loop(now){raf=0;if(!visible)return;const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;if(t>=CYCLE){t=0;load((doc+1)%DOCS.length);}paint();if(!still())raf=requestAnimationFrame(loop);}
+ load(0);
+ onVisible(st,v=>{visible=v;if(still()){t=CYCLE*.9;paint();return;}if(v&&!raf){last=performance.now();raf=requestAnimationFrame(loop);}});
+ return {kick:()=>{if(visible&&!raf&&!still()){last=performance.now();raf=requestAnimationFrame(loop);}}};
+})();
+function renderTV(){toon.render();cup.paint();}
 
 /* Motion control pauses every loop on the page. */
 const motionBtn=$('#motion-control');
@@ -1558,7 +1717,7 @@ function renderMotion(){
  motionBtn.setAttribute('data-en-label',paused?'Play animations':'Pause animations');motionBtn.setAttribute('data-pt-label',paused?'Retomar animações':'Pausar animações');motionBtn.setAttribute('aria-label',copy(motionBtn.dataset.enLabel,motionBtn.dataset.ptLabel));
  $('.motion-label',motionBtn).innerHTML=paused?'<span class="lang-en">Play motion</span><span class="lang-pt">Retomar movimento</span>':'<span class="lang-en">Pause motion</span><span class="lang-pt">Pausar movimento</span>';
 }
-motionBtn.addEventListener('click',()=>{paused=!paused;renderMotion();if(paused)keep.stopAuto();else keep.startAuto();market.kick();nfl.kick();renderCue();});
+motionBtn.addEventListener('click',()=>{paused=!paused;renderMotion();if(paused)keep.stopAuto();else keep.startAuto();market.kick();nfl.kick();cup.kick();tril.kick();renderCue();});
 reduce.addEventListener('change',()=>{market.kick();nfl.kick();});
 
 document.addEventListener('portfolio:language',()=>{renderTV();keep.relang();renderNowPlaying(false);renderCue();});
